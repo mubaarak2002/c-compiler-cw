@@ -7,7 +7,7 @@
 
 /* Bring in our declarations for token types and
    the yylval variable. */
-#include "histogram.hpp"
+#include "lexer.hpp"
 
 
 // This is to work around an irritating bug in Flex
