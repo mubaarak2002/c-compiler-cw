@@ -25,12 +25,16 @@ Num [0-9]
     printf("%s something in brackets\n", yytext);
 }
 
+\n {return 0;}
+
+[ ] {}
+
 .	 {
     printf("%s unknown\n", yytext);
 }
 
-\n {return 0;}
 %%
+
 
 /*** Code Section prints the number of
 capital letter present in the given input***/
@@ -55,8 +59,7 @@ int main(){
 // yyin = fp;
 
 yylex();
-printf("\nNumber of Capital letters "
-	"in the given input");
+printf("\nFinished.\n");
 
 return 0;
 }
