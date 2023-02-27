@@ -28,18 +28,6 @@ Num [0-9]
    return Number;
    }
 
-[-]?({Num}+)[/]({Num}+) {
-   fprintf(stderr, "Fraction : %s\n", yytext);
-   char* token = strtok(yytext, "/");
-   double numerator, denominator;
-   numerator = atof(token);
-   token = strtok(NULL, "/");
-   denominator = atof(token);
-   yylval.numberValue = numerator / denominator ;
-
-   return Number;
-}
-
 ({Letter}+) {
    fprintf(stderr, "Word: %s\n", yytext); /* TODO: get value out of yytext and into yylval.wordValue */
    yylval.wordValue = new std::string(yytext);
