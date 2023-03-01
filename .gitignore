@@ -1,3 +1,4 @@
 bin/
 lex.yy.c
 a.out
+test/
