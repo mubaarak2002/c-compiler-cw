@@ -1,4 +1,7 @@
 bin/
-lex.yy.c
+lexer
+lexer_main.o
+lexer.yy.cpp
+lexer.yy.o
 a.out
 test/
