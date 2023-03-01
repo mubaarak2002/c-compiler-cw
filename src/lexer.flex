@@ -22,8 +22,8 @@ Num [0-9]
 
 %%
 
-[-]?({Num}+)([.]{Num}+)? {printf("Number:      %s\n", yytext); return Number;}
-\({Text}*\) {printf("In brackets: %s\n", yytext); return Word;}
+[-]?({Num}+)([.]{Num}+)? {printf("Number:      %s\n", yytext); yylval.numberValue = strtod(yytext, NULL); return Number;}
+\({Text}*\) {printf("In brackets: %s\n", yytext); return Word; std::string text(yytext); text = text.substr(1, text.size() - 2); yylval.wordValue = new std::string(text); return Word;}
 
 
 
@@ -33,17 +33,17 @@ Num [0-9]
 "else" {printf("Syntax:      %s\n", yytext); return Syntax;}
 "return" {printf("Syntax:      %s\n", yytext); return Syntax;}
 
-"int" {printf("Type:      %s\n", yytext); return Type;}
-"char" {printf("Type:      %s\n", yytext); return Type;}
-"unsigned" {printf("Type:      %s\n", yytext); return Type;}
+"int" {printf("Type:      %s\n", yytext); yylval.wordValue = new std::string(yytext); return Type;}
+"char" {printf("Type:      %s\n", yytext); yylval.wordValue = new std::string(yytext); return Type;}
+"unsigned" {printf("Type:      %s\n", yytext); yylval.wordValue = new std::string(yytext); return Type;}
 
-{Letter}+ {printf("Word:        %s\n", yytext); return Word;}
+{Letter}+ {printf("Word:        %s\n", yytext); return Word; yylval.wordValue = new std::string(yytext);}
 
-[=] {printf("Operator:    %s\n", yytext); return Operator;}
-[+] {printf("Operator:    %s\n", yytext); return Operator;}
-[-] {printf("Operator:    %s\n", yytext); return Operator;}
-[/] {printf("Operator:    %s\n", yytext); return Operator;}
-[*] {printf("Operator:    %s\n", yytext); return Operator;}
+[=] {printf("Operator:    %s\n", yytext); yylval.wordValue = new std::string(yytext); return Operator;}
+[+] {printf("Operator:    %s\n", yytext); yylval.wordValue = new std::string(yytext); return Operator;}
+[-] {printf("Operator:    %s\n", yytext); yylval.wordValue = new std::string(yytext); return Operator;}
+[/] {printf("Operator:    %s\n", yytext); yylval.wordValue = new std::string(yytext); return Operator;}
+[*] {printf("Operator:    %s\n", yytext); yylval.wordValue = new std::string(yytext); return Operator;}
 
 
 
