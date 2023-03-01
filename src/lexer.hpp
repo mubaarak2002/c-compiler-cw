@@ -6,16 +6,16 @@
 enum TokenType{
     None   = 0, // This indicates there are no more tokens
     Number = 1, // token codes must be positive
-    Word = 2
-    Syntax = 3
-    Operands = 4
+    Word = 2,
+    Syntax = 3,
+    Operator = 4,
+    Type
 };
 
 union TokenValue{
     double numberValue;
     std::string *wordValue;
 };
-
 
 // This is a global variable used to move the
 // attribute value from the lexer back to the

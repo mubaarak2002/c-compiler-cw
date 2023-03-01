@@ -1,65 +1,61 @@
+%option noyywrap
+
 %{
-/* int count = 0; */
+/* Now in a section of C that will be embedded
+   into the auto-generated code. Flex will not
+   try to interpret code surrounded by %{ ... %} */
+
+/* Bring in our declarations for token types and
+   the yylval variable. */
+#include "lexer.hpp"
+
+
+// This is to work around an irritating bug in Flex
+// https://stackoverflow.com/questions/46213840/get-rid-of-warning-implicit-declaration-of-function-fileno-in-flex
+extern "C" int fileno(FILE *stream);
+
+/* End the embedded code section. */
 %}
-
-/*** Rule Section has three rules, first rule
-matches with capital letters, second rule
-matches with any character except newline and
-third rule does not take input after the enter***/
-
 Text [^)]
 Letter [A-Za-z]
 Num [0-9]
 
 %%
 
-{Letter}+ {
-    printf("%s word\n", yytext);
-}
+[-]?({Num}+)([.]{Num}+)? {printf("Number:      %s\n", yytext); return Number;}
+\({Text}*\) {printf("In brackets: %s\n", yytext); return Word;}
 
-[-]?({Num}+)([.]{Num}+)? {
-    printf("%s number\n", yytext);
-}
 
-\({Text}*\) {
-    printf("%s something in brackets\n", yytext);
-}
 
-\n {return 0;}
+"while" {printf("Syntax:      %s\n", yytext); return Syntax;}
+"for" {printf("Syntax:      %s\n", yytext); return Syntax;}
+"if" {printf("Syntax:      %s\n", yytext); return Syntax;}
+"else" {printf("Syntax:      %s\n", yytext); return Syntax;}
+"return" {printf("Syntax:      %s\n", yytext); return Syntax;}
 
+"int" {printf("Type:      %s\n", yytext); return Type;}
+"char" {printf("Type:      %s\n", yytext); return Type;}
+"unsigned" {printf("Type:      %s\n", yytext); return Type;}
+
+{Letter}+ {printf("Word:        %s\n", yytext); return Word;}
+
+[=] {printf("Operator:    %s\n", yytext); return Operator;}
+[+] {printf("Operator:    %s\n", yytext); return Operator;}
+[-] {printf("Operator:    %s\n", yytext); return Operator;}
+[/] {printf("Operator:    %s\n", yytext); return Operator;}
+[*] {printf("Operator:    %s\n", yytext); return Operator;}
+
+
+
+\n { fprintf(stderr, "Newline\n"); }
 [ ] {}
-
-.	 {
-    printf("%s unknown\n", yytext);
-}
+.	 {printf("Unknown:                        %s\n", yytext);}
 
 %%
 
-
-/*** Code Section prints the number of
-capital letter present in the given input***/
-int yywrap(){}
-int main(){
-
-// Explanation:
-// yywrap() - wraps the above rule section
-/* yyin - takes the file pointer
-		which contains the input*/
-/* yylex() - this is the main flex function
-		which runs the Rule Section*/
-// yytext is the text in the buffer
-
-// Uncomment the lines below
-// to take input from file
-// FILE *fp;
-// char filename[50];
-// printf("Enter the filename: \n");
-// scanf("%s",filename);
-// fp = fopen(filename,"r");
-// yyin = fp;
-
-yylex();
-printf("\nFinished.\n");
-
-return 0;
+/* Error handler. This will get called if none of the rules match. */
+void yyerror (char const *s)
+{
+  fprintf (stderr, "Flex Error: %s\n", s); /* s is the text that wasn't matched */
+  exit(1);
 }
