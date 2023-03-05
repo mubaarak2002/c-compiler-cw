@@ -5,3 +5,4 @@ lexer.yy.cpp
 lexer.yy.o
 a.out
 test/
+.vscode/
