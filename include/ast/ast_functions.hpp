@@ -32,12 +32,14 @@ public:
         dst<<" )";
     }
 
-    virtual double evaluate(
+    /*virtual double evaluate(
         const std::map<std::string,double> &bindings
     ) const override
     {
         // NOTE : This should be implemented by the inheriting function nodes, e.g. LogFunction
+
     }
+    */
 };
 
 class LogFunction
@@ -50,18 +52,17 @@ public:
 
     virtual const char *getFunction() const
     { return "log"; }
-    
-    // TODO-E : Override evaluate, and implement it
 
+    // TODO-E : Override evaluate, and implement it
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
-
     {
-    double v=getArg()->evaluate(bindings);
-    return log(v);
+        double varg = getArg()->evaluate(w, bindings);
+        w << "log" << std::endl;
+        return log(varg);
     }
- 
 };
 
 class ExpFunction
@@ -75,15 +76,15 @@ public:
     virtual const char *getFunction() const
     { return "exp"; }
 
-    virtual double evaluate(
+     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
-
     {
-    double v=getArg()->evaluate(bindings);
-    return exp(v);
+        double varg = getArg()->evaluate(w, bindings);
+        w << "exp" << std::endl;
+        return exp(varg);
     }
-
 };
 
 class SqrtFunction
@@ -98,14 +99,14 @@ public:
     { return "sqrt"; }
 
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
-
     {
-    double v=getArg()->evaluate(bindings);
-    return sqrt(v);
+        double varg = getArg()->evaluate(w, bindings);
+        w << "square" << std::endl;
+        return sqrt(varg);
     }
-
 };
 
 

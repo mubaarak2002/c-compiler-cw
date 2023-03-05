@@ -46,13 +46,14 @@ public:
     { return "-"; }
 
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string, double> &bindings
     ) const override
     {
         // TODO-F: Implement this similar to how AddOperator was implemented.
-
-        double v=getExpr()->evaluate(bindings);
-        return -v;
+        double vexpr = getExpr()->evaluate(w, bindings);
+        w << -vexpr << std::endl;
+        return -vexpr;
 
     }
 };

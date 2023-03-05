@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include <math.h>
+#include<math.h>
 
 class Operator
     : public Expression
@@ -53,14 +53,16 @@ public:
     AddOperator(ExpressionPtr _left, ExpressionPtr _right)
         : Operator(_left, _right)
     {}
-    
+
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
-    ) const override 
+    ) const override
     {
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
-        double vl=getLeft()->evaluate(bindings);
-        double vr=getRight()->evaluate(bindings);
+        double vl=getLeft()->evaluate(w, bindings);
+        double vr=getRight()->evaluate(w, bindings);
+        w << "add " << vl << " " << vr << std::endl;
         return vl+vr;
     }
 };
@@ -75,14 +77,16 @@ public:
     SubOperator(ExpressionPtr _left, ExpressionPtr _right)
         : Operator(_left, _right)
     {}
-    
+
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
-    ) const override 
+    ) const override
     {
         // TODO-D : Implement this, based on AddOperator::evaluate
-        double vl=getLeft()->evaluate(bindings);
-        double vr=getRight()->evaluate(bindings);
+        double vl=getLeft()->evaluate(w, bindings);
+        double vr=getRight()->evaluate(w, bindings);
+        w << "sub " << vl << " " << vr << std::endl;
         return vl-vr;
     }
 };
@@ -100,11 +104,13 @@ public:
     {}
 
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
     {
-        double vl=getLeft()->evaluate(bindings);
-        double vr=getRight()->evaluate(bindings);
+        double vl=getLeft()->evaluate(w, bindings);
+        double vr=getRight()->evaluate(w, bindings);
+        w << "Mul" << std::endl;
         return vl*vr;
     }
 };
@@ -121,11 +127,13 @@ public:
     {}
 
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
     {
-        double vl=getLeft()->evaluate(bindings);
-        double vr=getRight()->evaluate(bindings);
+        double vl=getLeft()->evaluate(w, bindings);
+        double vr=getRight()->evaluate(w, bindings);
+        w << "Div" << std::endl;
         return vl/vr;
     }
 };
@@ -142,11 +150,13 @@ public:
     {}
 
     virtual double evaluate(
+        std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
     {
-        double vl=getLeft()->evaluate(bindings);
-        double vr=getRight()->evaluate(bindings);
+        double vl=getLeft()->evaluate(w, bindings);
+        double vr=getRight()->evaluate(w, bindings);
+        w << "power" << std::endl;
         return pow(vl, vr);
     }
 };
