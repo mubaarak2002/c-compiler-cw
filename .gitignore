@@ -1,8 +1,10 @@
 bin/
 lexer
-lexer_main.o
-lexer.yy.cpp
 lexer.yy.o
 a.out
 test/
 .vscode/
+parser.output
+*.yy.*
+*.tab.*
+*.o
