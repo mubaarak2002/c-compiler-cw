@@ -7,22 +7,28 @@ extern "C" int fileno(FILE *stream);
 #include "parser.tab.hpp"
 %}
 
+Text [^)]
+Letter [A-Za-z]
+Num [0-9]
+
 %%
+
+int             {  yylval.string=new std::string(yytext); return INT; }
+
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }
 [+]             { return T_PLUS; }
 [\^]            { return T_EXPONENT; }
 [-]             { return T_MINUS; }
+[,]             { return COMMA; }
 
 [(]             { return T_LBRACKET; }
 [)]             { return T_RBRACKET; }
 
-log             { return T_LOG; }
-exp             { return T_EXP; }
-sqrt            { return T_SQRT; }
 
-[0-9]+([.][0-9]*)? { yylval.number=strtod(yytext, 0); return T_NUMBER; }
-[a-z]+          { yylval.string=new std::string(yytext); return T_VARIABLE; }
+[-]?({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}
+
+{Letter}+       { yylval.string=new std::string(yytext); return T_VARIABLE; }
 
 [ \t\r\n]+		{;}
 

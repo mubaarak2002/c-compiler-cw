@@ -22,12 +22,13 @@
 
 %token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
 %token T_LBRACKET T_RBRACKET
-%token T_LOG T_EXP T_SQRT
 %token T_NUMBER T_VARIABLE
+%token INT
+%token COMMA
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ TYPE ARGS
 %type <number> T_NUMBER
-%type <string> T_VARIABLE T_LOG T_EXP T_SQRT FUNCTION_NAME
+%type <string> T_VARIABLE
 
 %start ROOT
 
@@ -49,6 +50,10 @@ ROOT : SEQ { g_root = $1; }
 SEQ : SECTION    { $$ = $1; }
     | SEQ SECTION  { $$ = new Sequence($1, $2);}
     ;
+
+ARGS : TYPE   {$$ = $1;}
+     | ARGS COMMA TYPE COMMA {$$ = new Args($1,$3);}
+     ;
 
 SECTION : EXPR  {$$ = $1;}
         ;
@@ -73,18 +78,10 @@ UNARY : FACTOR        { $$ = $1; }
 FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
        | T_VARIABLE   { $$ = new Variable( *$1 ); }
        | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
-       | FACTOR T_EXPONENT UNARY { $$ = new ExpOperator($1, $3); }
-       | T_LOG T_LBRACKET EXPR T_RBRACKET { $$ = new LogFunction($3); }
-       | T_SQRT T_LBRACKET EXPR T_RBRACKET { $$ = new SqrtFunction($3); }
-       | T_EXP T_LBRACKET EXPR T_RBRACKET { $$ = new ExpFunction($3); }
        ;
 
-/* TODO-6 : Add support log(x), by modifying the rule for FACTOR. */
-
-/* TODO-7 : Extend support to other functions. Requires modifications here, and to FACTOR. */
-FUNCTION_NAME : T_LOG { $$ = new std::string("log"); }
-              | T_SQRT { $$ = new std::string("sqrt"); }
-              | T_EXP { $$ = new std::string("exp"); }
+TYPE : INT T_VARIABLE { $$ = new Type("int", $2);}
+     ;
 
 %%
 
