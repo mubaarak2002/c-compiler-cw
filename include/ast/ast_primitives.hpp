@@ -62,5 +62,31 @@ public:
     }
 };
 
+class Type
+    : public Expression
+{
+private:
+    std::string id;
+public:
+    Type(const std::string &_id)
+        : id(_id)
+    {}
+
+    virtual void print(std::ostream &dst) const override
+    {
+        dst<<id;
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+        // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
+        // If the binding does not exist, this will throw an error
+        w << id << std::endl;
+        //return bindings.at(id);
+    }
+};
 
 #endif

@@ -21,14 +21,14 @@
 }
 
 %token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
-%token T_LBRACKET T_RBRACKET
+%token T_LBRACKET T_RBRACKET T_LCURLY T_RCURLY
 %token T_NUMBER T_VARIABLE
 %token INT
 %token COMMA
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ TYPE ARGS
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT
 %type <number> T_NUMBER
-%type <string> T_VARIABLE
+%type <string> T_VARIABLE INT
 
 %start ROOT
 
@@ -51,11 +51,16 @@ SEQ : SECTION    { $$ = $1; }
     | SEQ SECTION  { $$ = new Sequence($1, $2);}
     ;
 
-ARGS : TYPE   {$$ = $1;}
-     | ARGS COMMA TYPE COMMA {$$ = new Args($1,$3);}
+FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SECTION T_RCURLY {$$ = new UserFunct($1, $3, $6);}
+      ;
+
+ARGS : DECLARE  {$$ = $1;}
+     | ARGS COMMA DECLARE {$$ = new Args($1,$3);}
      ;
 
 SECTION : EXPR  {$$ = $1;}
+        | ARGS {$$ = $1;}
+        | FUNCT {$$ = $1;}
         ;
 
 EXPR : TERM           { $$ = $1; }
@@ -80,8 +85,11 @@ FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
        | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
        ;
 
-TYPE : INT T_VARIABLE { $$ = new Type("int", $2);}
+TYPE : INT  {$$ = new Type( *$1 );}
      ;
+
+DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}
+        ;
 
 %%
 

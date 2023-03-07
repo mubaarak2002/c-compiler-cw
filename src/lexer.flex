@@ -24,6 +24,8 @@ int             {  yylval.string=new std::string(yytext); return INT; }
 
 [(]             { return T_LBRACKET; }
 [)]             { return T_RBRACKET; }
+[{]             { return T_LCURLY; }
+[}]             { return T_RCURLY; }
 
 
 [-]?({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}
