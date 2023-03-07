@@ -42,7 +42,6 @@ public:
         dst<<" )";
     }
 };
-
 class Sequence
     : public Block
 {
@@ -65,6 +64,55 @@ public:
         w << "next: ";
         double next=getRight()->evaluate(w, bindings);
         return first;
+    }
+};
+
+class Decleration
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    Decleration(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+
+        // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
+        double type=getLeft()->evaluate(w, bindings);
+        double name=getRight()->evaluate(w, bindings); //should be std::string
+        //return name;
+    }
+};
+
+class Args
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    Args(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+
+        w << "(";
+        double left=getLeft()->evaluate(w, bindings);
+        double right=getRight()->evaluate(w, bindings); //should be std::string
+        w << ")" << std::endl;
+        //return name;
     }
 };
 
