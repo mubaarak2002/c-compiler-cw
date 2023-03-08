@@ -4,7 +4,7 @@ CPPFLAGS += -std=c++20 -W -Wall -g -I include
 
 default: bin/c_compiler
 
-bin/c_compiler : src/cli.cpp src/compiler.cpp src/parser.tab.o src/lexer.yy.o src/parser.tab.o
+bin/c_compiler : src/cli.cpp src/reg_name.cpp src/compiler.cpp src/parser.tab.o src/lexer.yy.o src/parser.tab.o
 	@mkdir -p bin
 	g++ $(CPPFLAGS) -o bin/c_compiler $^
 

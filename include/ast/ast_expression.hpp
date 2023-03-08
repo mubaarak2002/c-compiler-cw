@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include "reg_name.h"
 
 #include <memory>
 

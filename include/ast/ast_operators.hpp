@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include<math.h>
+#include "reg_name.h"
 
 class Operator
     : public Expression

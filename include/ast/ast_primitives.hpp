@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "reg_name.h"
 
 class Variable
     : public Expression
@@ -22,7 +23,7 @@ public:
         dst<<id;
     }
 
-    virtual std::string evaluate(
+    virtual double evaluate(
         std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
@@ -31,7 +32,7 @@ public:
         // If the binding does not exist, this will throw an error
         w << "Variable: " << id << std::endl;
         //return bindings.at(id);
-        return id;
+
     }
 };
 
@@ -58,8 +59,8 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
-        // TODO-A : Run bin/eval_expr with a numeric expression to make sure you understand how this works.
-        return value;
+        // Using li to store in temp register and return register number
+        //return value;
     }
 };
 

@@ -32,26 +32,10 @@ Changelog
     * The basic compiler framework has been improved to support command line arguments.
     * GitHub Actions can now perform automated testing of your compiler.
 
-* New for 2021/2022:
+Management:
+---Milestones----
+Week 1: Using Lab 2 took tree and changed adapted it to print to output stream
 
-    * Various improvements to scripts for running test cases.
-
-* New for 2020/2021:
-
-    * In previous years, students were additionally required to submit a C-to-Python translator, as a "ramping up" task. This extra deliverable has been removed, as the labs provide plenty of "ramping up" practice.
-
-    * We have provided a really basic compiler that simply ignores its input and produces a fixed, valid MIPS assembly program. This should help you to get started a bit more rapidly.
-
-* New for 2019/2020:
-
-    * In previous years, students were additionally required to submit a set of testcases. This deliverable has been removed; instead, a large collection of testcases has been provided for you, as this was judged to be more useful.
-
-    * In previous years, the compiler component counted for 42.8% of the module; it now counts for 55%. It was felt that this weighting more accurately reflects the effort that students put in to building a working compiler.
-
-Acknowledgements
-================
-
-* The coursework was originally designed by [David Thomas](https://www.southampton.ac.uk/people/5z9bmb/professor-david-thomas), who lectured this module until 2017-18. It is nowadays maintained by [John Wickerson](https://johnwickerson.github.io/), to whom any feedback should be sent.
-* Thanks to [Yann Herklotz](https://yannherklotz.com/) for making various improvements to the compiler-testing scripts.
-* Thanks to [Archie Crichton](https://www.doc.ic.ac.uk/~ac11018/) for providing a basic "getting started" compiler.
-* Extra-special thanks to [James Nock](https://www.linkedin.com/in/jpnock) for overhauling the scripts for configuring the development environment, for writing detailed instructions for setting this up on various operating systems, and for creating GitHub actions capable of automatically testing compilers.
+Week 2: Implement parser and lexer to build tree for expressions, functions and assignments
+        All Operators and number only expressions store results in temp registers and return the register number.
+Week 3:

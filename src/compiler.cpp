@@ -7,13 +7,14 @@
 #include "ast.hpp"
 
 #include "cli.h"
+#include "reg_name.h"
 
-typedef std::unordered_map<std::string,std::string> histogram_type;
+typedef std::unordered_map<int,std::string> histogram_type;
 
 void compile(std::ostream &w)
 {
     const Expression *ast=parseAST();
-
+    w << "testing reg_name.cpp " << reg_name(0) << std::endl;
     histogram_type registers = {
         {"zero", "."},
         {"ra", "."},

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "reg_name.h"
 
 class Unary
     : public Expression
