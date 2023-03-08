@@ -1,18 +1,18 @@
-testing reg_name.cpp zero
-sub 4.67618e-310 4.67618e-310
-add -1.58101e-322 4.67618e-310
-next: add 4.67618e-310 4.67618e-310
-next: Assign: Variable: hellora
+testing reg_name.cpp a0
+sub 4.65658e-310 4.65658e-310
+add -1.58101e-322 4.65658e-310
+next: add 4.65658e-310 4.65658e-310
+next: Assign: Variable: hello
 next: 
 
 -------Function name : int
-Variable: fra
+Variable: f
 -------Arguements: (int
-Variable: ara
+Variable: a
 int
-Variable: bra
+Variable: b
 )
--------Code: Variable: SUUUUIIIIIIra
+-------Code: Variable: SUUUUIIIIII
 
 
 .text

@@ -1,4 +1,4 @@
-#include <reg_name.h>
+#include "reg_name.h"
 
 std::string reg_name(int num){
     switch (num){
@@ -13,7 +13,7 @@ std::string reg_name(int num){
         case 8: return "s0"; break;
         case 9: return "s1"; break;
         case 10: return "a0"; break;
-        case 11; return "a1"; break;
+        case 11: return "a1"; break;
         case 12: return "a2"; break;
         case 13: return "a3"; break;
         case 14: return "a4"; break;

@@ -14,40 +14,40 @@ typedef std::unordered_map<int,std::string> histogram_type;
 void compile(std::ostream &w)
 {
     const Expression *ast=parseAST();
-    w << "testing reg_name.cpp " << reg_name(0) << std::endl;
+    w << "testing reg_name.cpp " << reg_name(10) << std::endl;
     histogram_type registers = {
-        {"zero", "."},
-        {"ra", "."},
-        {"sp", "."},
-        {"gp", "."},
-        {"tp", "."},
-        {"t0", "."},
-        {"t1", "."},
-        {"t2", "."},
-        {"s0", "."},
-        {"s1", "."},
-        {"a0", "."},
-        {"a1", "."},
-        {"a2", "."},
-        {"a3", "."},
-        {"a4", "."},
-        {"a5", "."},
-        {"a6", "."},
-        {"a7", "."},
-        {"s2", "."},
-        {"s3", "."},
-        {"s4", "."},
-        {"s5", "."},
-        {"s6", "."},
-        {"s7", "."},
-        {"s8", "."},
-        {"s9", "."},
-        {"s10", "."},
-        {"s11", "."},
-        {"t3", "."},
-        {"t4", "."},
-        {"t5", "."},
-        {"t6", "."}
+        {0, "."},
+        {1, "."},
+        {2, "."},
+        {3, "."},
+        {4, "."},
+        {5, "."},
+        {6, "."},
+        {7, "."},
+        {8, "."},
+        {9, "."},
+        {10, "."},
+        {11, "."},
+        {12, "."},
+        {13, "."},
+        {14, "."},
+        {15, "."},
+        {16, "."},
+        {17, "."},
+        {18, "."},
+        {19, "."},
+        {20, "."},
+        {21, "."},
+        {22, "."},
+        {23, "."},
+        {24, "."},
+        {25, "."},
+        {26, "."},
+        {27, "."},
+        {28, "."},
+        {29, "."},
+        {30, "."},
+        {31, "."}
     };
 
 
@@ -65,9 +65,9 @@ void compile(std::ostream &w)
     w << "add   a0, zero, t0" << std::endl;
     w << "ret" << std::endl;
 
-    w << registers["a0"] << std::endl;
-    registers["a0"] = "var";
-    w << registers["a0"] << std::endl;
+    w << registers[10] << std::endl;
+    registers[10] = "var";
+    w << registers[10] << std::endl;
 
 }
 
