@@ -22,7 +22,7 @@ public:
         dst<<id;
     }
 
-    virtual double evaluate(
+    virtual std::string evaluate(
         std::ostream &w,
         const std::map<std::string,double> &bindings
     ) const override
@@ -31,6 +31,7 @@ public:
         // If the binding does not exist, this will throw an error
         w << "Variable: " << id << std::endl;
         //return bindings.at(id);
+        return id;
     }
 };
 
