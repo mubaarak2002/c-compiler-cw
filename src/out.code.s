@@ -1,7 +1,7 @@
 sub 5 5
 add 0 6
 next: add 5 5
-next: Variable: hello
+next: Assign: Variable: hello
 next: 
 
 -------Function name : int

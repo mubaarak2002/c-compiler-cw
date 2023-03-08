@@ -15,6 +15,7 @@ Num [0-9]
 
 int             {  yylval.string=new std::string(yytext); return INT; }
 
+<<<<<<< HEAD
 [*]             { return '*'; }
 [/]             { return '/'; }
 [+]             { return '+; }
@@ -26,6 +27,21 @@ int             {  yylval.string=new std::string(yytext); return INT; }
 [)]             { return ')'; }
 [{]             { return '{'; }
 [}]             { return '}'; }
+=======
+[*]             { return T_TIMES; }
+[/]             { return T_DIVIDE; }
+[+]             { return T_PLUS; }
+[\^]            { return T_EXPONENT; }
+[-]             { return T_MINUS; }
+[,]             { return COMMA; }
+[=]             { return '='; }
+
+[(]             { return T_LBRACKET; }
+[)]             { return T_RBRACKET; }
+[{]             { return T_LCURLY; }
+[}]             { return T_RCURLY; }
+[;]             { return ';'; }
+>>>>>>> 86c5344 (implement assigning variables)
 
 
 [-]?({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}

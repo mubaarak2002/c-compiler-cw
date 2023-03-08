@@ -26,7 +26,7 @@
 %token INT
 %token COMMA
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN
 %type <number> T_NUMBER
 %type <string> T_VARIABLE INT
 
@@ -58,9 +58,9 @@ ARGS : DECLARE  {$$ = $1;}
      | ARGS COMMA DECLARE {$$ = new Args($1,$3);}
      ;
 
-SECTION : EXPR  {$$ = $1;}
-        | ARGS {$$ = $1;}
+SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
+        | ASSIGN ';' { $$ = $1;}
         ;
 
 EXPR : TERM           { $$ = $1; }
@@ -87,6 +87,9 @@ FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
 
 TYPE : INT  {$$ = new Type( *$1 );}
      ;
+
+ASSIGN : FACTOR '=' EXPR { $$ = new Assign($1, $3); }
+       ;
 
 DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}
         ;

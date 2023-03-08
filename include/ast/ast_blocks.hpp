@@ -116,4 +116,28 @@ public:
     }
 };
 
+class Assign
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    Assign(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+
+        w << "Assign: ";
+        double left=getLeft()->evaluate(w, bindings);
+        double right=getRight()->evaluate(w, bindings); //should be std::string
+        //return name;
+    }
+};
+
 #endif
