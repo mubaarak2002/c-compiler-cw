@@ -60,7 +60,7 @@ public:
     ) const override
     {
         // Using li to store in temp register and return register number
-        //return value;
+        return value;
     }
 };
 

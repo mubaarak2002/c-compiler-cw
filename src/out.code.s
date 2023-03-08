@@ -1,7 +1,7 @@
 testing reg_name.cpp a0
-sub 4.65658e-310 4.65658e-310
-add -1.58101e-322 4.65658e-310
-next: add 4.65658e-310 4.65658e-310
+sub 5 5
+add 0 6
+next: add 5 5
 next: Assign: Variable: hello
 next: 
 
