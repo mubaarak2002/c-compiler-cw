@@ -20,11 +20,8 @@
   std::string *string;
 }
 
-%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
-%token T_LBRACKET T_RBRACKET T_LCURLY T_RCURLY
 %token T_NUMBER T_VARIABLE
 %token INT
-%token COMMA
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN
 %type <number> T_NUMBER
@@ -51,11 +48,11 @@ SEQ : SECTION    { $$ = $1; }
     | SEQ SECTION  { $$ = new Sequence($1, $2);}
     ;
 
-FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SECTION T_RCURLY {$$ = new UserFunct($1, $3, $6);}
+FUNCT : DECLARE '(' ARGS ')' '{' SECTION '}' {$$ = new UserFunct($1, $3, $6);}
       ;
 
 ARGS : DECLARE  {$$ = $1;}
-     | ARGS COMMA DECLARE {$$ = new Args($1,$3);}
+     | ARGS ',' DECLARE {$$ = new Args($1,$3);}
      ;
 
 SECTION : EXPR ';' {$$ = $1;}
@@ -64,25 +61,25 @@ SECTION : EXPR ';' {$$ = $1;}
         ;
 
 EXPR : TERM           { $$ = $1; }
-     | EXPR T_PLUS TERM  { $$ = new AddOperator($1, $3); }
-     | EXPR T_MINUS TERM  { $$ = new SubOperator($1, $3); }
+     | EXPR '+' TERM  { $$ = new AddOperator($1, $3); }
+     | EXPR '-' TERM  { $$ = new SubOperator($1, $3); }
      ;
 
 /* TODO-4 : Add support (x * 6) and (z / 11). */
 TERM : UNARY          { $$ = $1; }
-     | TERM T_TIMES FACTOR  { $$ = new MulOperator($1, $3); }
-     | TERM T_DIVIDE FACTOR  { $$ = new DivOperator($1, $3); }
+     | TERM '*' FACTOR  { $$ = new MulOperator($1, $3); }
+     | TERM '/' FACTOR  { $$ = new DivOperator($1, $3); }
      ;
 
 /*  TODO-5 : Add support for (- 5) and (- x). You'll need to add production rules for the unary minus operator and create a NegOperator. */
 UNARY : FACTOR        { $$ = $1; }
-      | T_MINUS FACTOR  { $$ = new NegOperator($2); }
+      | '-' FACTOR  { $$ = new NegOperator($2); }
       ;
 
 /* TODO-2 : Add a rule for variable, base on the pattern of number. */
 FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
        | T_VARIABLE   { $$ = new Variable( *$1 ); }
-       | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
+       | '(' EXPR ')' { $$ = $2; }
        ;
 
 TYPE : INT  {$$ = new Type( *$1 );}
