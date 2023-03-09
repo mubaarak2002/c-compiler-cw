@@ -25,7 +25,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
 
@@ -33,7 +33,36 @@ public:
         // If the binding does not exist, this will throw an error
         w << "Variable: " << id << std::endl;
 
+        double reg = 0;
+
+        if (bindings.at(8.0) == id){ reg = 8.0; }
+        else if (bindings.at(9.0) == id){ reg = 9.0; }
+        if (reg == 0.0){
+            for(double i = 18; i < 28; i++){
+                if (bindings.at(i) == id){
+                    reg = i;
+                    break;
+                }
+            }
+        }
+        std::string empty = ".";
+        if (reg == 0.0){
+            if (bindings.at(8.0) == empty){ bindings.at(8.0) = id; reg = 8.0; }
+            if (bindings.at(9.0) == empty){ bindings.at(9.0) = id; reg = 9.0; }
+            if (reg == 0.0){
+                for(double i = 18; i < 28; i++){
+                    if (bindings.at(i) == empty){
+                        bindings[i] = id;
+                        reg = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        w << "registers full" << std::endl;
         //extend registers here if they are full
+        return reg;
 
     }
 };
