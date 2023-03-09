@@ -48,7 +48,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
         // TODO-F: Implement this similar to how AddOperator was implemented.

@@ -56,7 +56,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
 
@@ -81,7 +81,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
 
@@ -105,7 +105,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
 
@@ -130,7 +130,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
 

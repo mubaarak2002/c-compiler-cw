@@ -2,18 +2,36 @@ sub 5 5
 add 0 6
 next: add 5 5
 next: Assign: int
-Variable: hello.
-next: Assign: Variable: hello.
+Variable: hello
+reg 10 is .
+test
+registers full
+next: Assign: Variable: hello
+reg 10 is test
+test
+registers full
 next: 
 
 -------Function name : int
-Variable: f.
+Variable: f
+reg 10 is test
+test
+registers full
 -------Arguements: (int
-Variable: a.
+Variable: a
+reg 10 is test
+test
+registers full
 int
-Variable: b.
+Variable: b
+reg 10 is test
+test
+registers full
 )
--------Code: Variable: SUUUUIIIIII.
+-------Code: Variable: SUUUUIIIIII
+reg 10 is test
+test
+registers full
 
 
 .text

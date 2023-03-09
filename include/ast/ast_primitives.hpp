@@ -47,12 +47,12 @@ public:
         }
         std::string empty = ".";
         if (reg == 0.0){
-            if (bindings.at(8.0) == empty){ bindings.at(8.0) = id; reg = 8.0; }
-            if (bindings.at(9.0) == empty){ bindings.at(9.0) = id; reg = 9.0; }
+            if (bindings.at(8.0) == empty){ bindings.at(8.0) == id; reg = 8.0; }
+            if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
             if (reg == 0.0){
                 for(double i = 18; i < 28; i++){
                     if (bindings.at(i) == empty){
-                        bindings[i] = id;
+                        bindings.at(i) = id;
                         reg = i;
                         break;
                     }
@@ -60,7 +60,7 @@ public:
             }
         }
 
-        w << "registers full" << std::endl;
+        // w << "registers full" << std::endl;
         //extend registers here if they are full
         return reg;
 
@@ -87,7 +87,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
         // Using li to store in temp register and return register number
@@ -112,7 +112,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings
     ) const override
     {
         // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
