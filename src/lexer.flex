@@ -15,6 +15,8 @@ Num [0-9]
 
 int             {  yylval.string=new std::string(yytext); return INT; }
 
+"return"        { return(RETURN); }
+
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }
 [+]             { return T_PLUS; }
