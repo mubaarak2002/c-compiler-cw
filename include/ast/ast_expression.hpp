@@ -23,7 +23,7 @@ public:
 
     //! Evaluate the tree using the given mapping of variables to numbers
     virtual double evaluate(std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const
     { throw std::runtime_error("Not implemented."); }
 };

@@ -2,17 +2,19 @@ testing reg_name.cpp a0
 sub 5 5
 add 0 6
 next: add 5 5
-next: Assign: Variable: hello
+next: Assign: int
+Variable: helloa2
+next: Assign: Variable: helloa2
 next: 
 
 -------Function name : int
-Variable: f
+Variable: fa2
 -------Arguements: (int
-Variable: a
+Variable: aa2
 int
-Variable: b
+Variable: ba2
 )
--------Code: Variable: SUUUUIIIIII
+-------Code: Variable: SUUUUIIIIIIa2
 
 
 .text

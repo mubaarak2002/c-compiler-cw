@@ -1,7 +1,7 @@
 #include "reg_name.h"
 
-std::string reg_name(int num){
-    switch (num){
+std::string reg_name(double num){
+    switch (int(num)){
         case 0: return "zero"; break;
         case 1: return "ra"; break;
         case 2: return "sp"; break;

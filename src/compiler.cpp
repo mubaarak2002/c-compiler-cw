@@ -9,7 +9,7 @@
 #include "cli.h"
 #include "reg_name.h"
 
-typedef std::unordered_map<int,std::string> histogram_type;
+typedef std::map<double,std::string> histogram_type;
 
 void compile(std::ostream &w)
 {
@@ -52,7 +52,7 @@ void compile(std::ostream &w)
 
 
     // evaluate it
-    std::map<std::string,double> bindings;
+    std::map<double,std::string> bindings;
     double res=ast->evaluate(w, bindings);
 
     w << ".text" << std::endl;

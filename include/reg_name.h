@@ -3,6 +3,6 @@
 
 #include <string>
 
-std::string reg_name(int num);
+std::string reg_name(double num);
 
 #endif

@@ -25,13 +25,15 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
+
         // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
         // If the binding does not exist, this will throw an error
         w << "Variable: " << id << std::endl;
-        //return bindings.at(id);
+
+        //extend registers here if they are full
 
     }
 };
@@ -56,7 +58,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         // Using li to store in temp register and return register number
@@ -81,7 +83,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.

@@ -57,7 +57,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
@@ -81,7 +81,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         // TODO-D : Implement this, based on AddOperator::evaluate
@@ -106,7 +106,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         double vl=getLeft()->evaluate(w, bindings);
@@ -129,7 +129,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         double vl=getLeft()->evaluate(w, bindings);
@@ -152,7 +152,7 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        const std::map<std::string,double> &bindings
+        const std::map<double,std::string> &bindings
     ) const override
     {
         double vl=getLeft()->evaluate(w, bindings);
