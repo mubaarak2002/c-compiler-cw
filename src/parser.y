@@ -89,6 +89,7 @@ TYPE : INT  {$$ = new Type( *$1 );}
      ;
 
 ASSIGN : FACTOR '=' EXPR { $$ = new Assign($1, $3); }
+       | DECLARE '=' EXPR { $$ = new Assign($1, $3); }
        ;
 
 DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}
