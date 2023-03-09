@@ -14,8 +14,7 @@ typedef std::map<double,std::string> histogram_type;
 void compile(std::ostream &w)
 {
     const Expression *ast=parseAST();
-    w << "testing reg_name.cpp " << reg_name(10) << std::endl;
-    histogram_type registers = {
+    histogram_type bindings = {
         {0, "."},
         {1, "."},
         {2, "."},
@@ -50,9 +49,7 @@ void compile(std::ostream &w)
         {31, "."}
     };
 
-
     // evaluate it
-    std::map<double,std::string> bindings;
     double res=ast->evaluate(w, bindings);
 
     w << ".text" << std::endl;
@@ -64,10 +61,6 @@ void compile(std::ostream &w)
     w << "addi  t0, t0,   5" << std::endl;
     w << "add   a0, zero, t0" << std::endl;
     w << "ret" << std::endl;
-
-    w << registers[10] << std::endl;
-    registers[10] = "var";
-    w << registers[10] << std::endl;
 
 }
 
