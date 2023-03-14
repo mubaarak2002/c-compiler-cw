@@ -37,7 +37,7 @@ public:
 
         if (bindings.at(8.0) == id){ reg = 8.0; }
         else if (bindings.at(9.0) == id){ reg = 9.0; }
-        if (reg == 0.0){
+        else if (reg == 0.0){
             for(double i = 18; i < 28; i++){
                 if (bindings.at(i) == id){
                     reg = i;
@@ -48,8 +48,8 @@ public:
         std::string empty = ".";
         if (reg == 0.0){
             if (bindings.at(8.0) == empty){ bindings.at(8.0) == id; reg = 8.0; }
-            if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
-            if (reg == 0.0){
+            else if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
+            else if (reg == 0.0){
                 for(double i = 18; i < 28; i++){
                     if (bindings.at(i) == empty){
                         bindings.at(i) = id;
@@ -59,6 +59,11 @@ public:
                 }
             }
         }
+
+        bindings.at(reg) = id;
+
+        w << "reg 8: " << bindings.at(8) << std::endl;
+        w << "reg 9: " << bindings.at(9) << std::endl;
 
         // w << "registers full" << std::endl;
         //extend registers here if they are full

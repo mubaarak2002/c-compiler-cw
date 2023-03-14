@@ -1,39 +1,11 @@
-sub 5 5
-add 0 6
-next: add 5 5
-next: Assign: int
-Variable: hello
-reg 10 is .
-test
-registers full
-next: Assign: Variable: hello
-reg 10 is test
-test
-registers full
-next: 
-
--------Function name : int
-Variable: f
-reg 10 is test
-test
-registers full
--------Arguements: (int
+Assign: int
 Variable: a
-reg 10 is test
-test
-registers full
-int
+reg 8: a
+reg 9: .
+next: Assign: int
 Variable: b
-reg 10 is test
-test
-registers full
-)
--------Code: Variable: SUUUUIIIIII
-reg 10 is test
-test
-registers full
-
-
+reg 8: a
+reg 9: b
 .text
 .globl f
 

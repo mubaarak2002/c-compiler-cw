@@ -107,6 +107,7 @@ public:
         std::ostream &w,
         std::map<double,std::string> &bindings
     ) const override
+
     {
 
         w << "(";
@@ -116,6 +117,7 @@ public:
         //return name;
     }
 };
+
 
 class Assign
     : public Block
