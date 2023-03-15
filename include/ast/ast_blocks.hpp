@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include<math.h>
+#include <math.h>
 #include "reg_name.h"
 
 class Block
@@ -86,6 +86,7 @@ public:
     {
 
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
+        w << "Declare" << std::endl;
         double type=getLeft()->evaluate(w, bindings);
         double name=getRight()->evaluate(w, bindings); //should be std::string
         //return name;
@@ -140,6 +141,7 @@ public:
         double left=getLeft()->evaluate(w, bindings);
         double right=getRight()->evaluate(w, bindings); //should be std::string
         //return name;
+        w << "Li "<<reg_name(left)<<","<<right<<std::endl;
     }
 };
 

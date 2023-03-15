@@ -1,11 +1,8 @@
-Assign: int
+Assign: Declare
+intType
 Variable: a
-reg 8: a
-reg 9: .
-next: Assign: int
-Variable: b
-reg 8: a
-reg 9: b
+5
+Li s0,5
 .text
 .globl f
 

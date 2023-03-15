@@ -60,11 +60,6 @@ public:
             }
         }
 
-        bindings.at(reg) = id;
-
-        w << "reg 8: " << bindings.at(8) << std::endl;
-        w << "reg 9: " << bindings.at(9) << std::endl;
-
         // w << "registers full" << std::endl;
         //extend registers here if they are full
         return reg;
@@ -96,6 +91,7 @@ public:
     ) const override
     {
         // Using li to store in temp register and return register number
+        w << value << std::endl;
         return value;
     }
 };
@@ -122,8 +118,30 @@ public:
     {
         // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
         // If the binding does not exist, this will throw an error
-        w << id << std::endl;
+        w << id << "Type" << std::endl;
         //return bindings.at(id);
+    }
+};
+
+class Return
+    : public Expression
+{
+private:
+    ExpressionPtr expr;
+public:
+    Return(const ExpressionPtr _expr)
+        : expr(_expr)
+    {}
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings
+    ) const override
+    {
+        w << "Return" << std::endl;
     }
 };
 

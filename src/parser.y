@@ -36,7 +36,7 @@
 
 %%
 
-/* 
+/*
 */
 
 ROOT : SEQ { g_root = $1; }
@@ -55,6 +55,7 @@ ARGS : DECLARE  {$$ = $1;}
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
         | ASSIGN ';' { $$ = $1;}
+        | RETURN EXPR ';' { $$ = new Return($2);}
         ;
 
 EXPR : TERM           { $$ = $1; }
