@@ -56,14 +56,15 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings,
+        int &extra
     ) const override
     {
 
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
-        double first=getLeft()->evaluate(w, bindings);
+        double first=getLeft()->evaluate(w, bindings, extra);
         w << "next: ";
-        double next=getRight()->evaluate(w, bindings);
+        double next=getRight()->evaluate(w, bindings, extra);
         return first;
     }
 };
@@ -81,14 +82,15 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings,
+        int &extra
     ) const override
     {
 
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
         w << "Declare" << std::endl;
-        double type=getLeft()->evaluate(w, bindings);
-        double name=getRight()->evaluate(w, bindings); //should be std::string
+        double type=getLeft()->evaluate(w, bindings, extra);
+        double name=getRight()->evaluate(w, bindings, extra); //should be std::string
         //return name;
     }
 };
@@ -106,14 +108,15 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings,
+        int &extra
     ) const override
 
     {
 
         w << "(";
-        double left=getLeft()->evaluate(w, bindings);
-        double right=getRight()->evaluate(w, bindings); //should be std::string
+        double left=getLeft()->evaluate(w, bindings, extra);
+        double right=getRight()->evaluate(w, bindings, extra); //should be std::string
         w << ")" << std::endl;
         //return name;
     }
@@ -133,13 +136,14 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings,
+        int &extra
     ) const override
     {
 
         w << "Assign: ";
-        double left=getLeft()->evaluate(w, bindings);
-        double right=getRight()->evaluate(w, bindings); //should be std::string
+        double left=getLeft()->evaluate(w, bindings, extra);
+        double right=getRight()->evaluate(w, bindings, extra); //should be std::string
         //return name;
         w << "Li "<<reg_name(left)<<","<<right<<std::endl;
     }

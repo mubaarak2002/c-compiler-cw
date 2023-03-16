@@ -64,16 +64,17 @@ public:
 
     virtual double evaluate(
         std::ostream &w,
-        std::map<double,std::string> &bindings
+        std::map<double,std::string> &bindings,
+        int &extra
     ) const override
     {
 
         w << std::endl << std::endl << "-------Function name : ";
-        double left=getLeft()->evaluate(w, bindings);
+        double left=getLeft()->evaluate(w, bindings, extra);
         w << "-------Arguements: ";
-        double right=getRight()->evaluate(w, bindings);
+        double right=getRight()->evaluate(w, bindings, extra);
         w << "-------Code: ";
-        double content = getContent()->evaluate(w, bindings);
+        double content = getContent()->evaluate(w, bindings, extra);
         w << std::endl << std::endl;
         //return ret;
     }

@@ -10,6 +10,8 @@
 #include "reg_name.h"
 
 typedef std::map<double,std::string> histogram_type;
+typedef int extra_int;
+extra_int extra;
 
 void compile(std::ostream &w)
 {
@@ -50,7 +52,7 @@ void compile(std::ostream &w)
     };
 
     // evaluate it
-    double res=ast->evaluate(w, bindings);
+    double res=ast->evaluate(w, bindings, extra);
 
     w << ".text" << std::endl;
     w << ".globl f" << std::endl;
