@@ -45,6 +45,7 @@ SEQ : SECTION    { $$ = $1; }
     ;
 
 FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new UserFunct($1, $3, $6);}
+      | DECLARE T_LBRACKET T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new SimpleFunct($1, $5);}
       ;
 
 ARGS : DECLARE  {$$ = $1;}

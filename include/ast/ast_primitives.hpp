@@ -106,7 +106,7 @@ public:
         else if (bindings.at(29.0) == empty){ bindings.at(29.0) = value; reg = 29.0;}
         else if (bindings.at(30.0) == empty){ bindings.at(30.0) = value; reg = 30.0;}
         else if (bindings.at(31.0) == empty){ bindings.at(31.0) = value; reg = 31.0;}
-        w << "li " << reg_name(reg) << " " << value << std::endl;
+        w << "li " << reg_name(reg) << ", " << value << std::endl;
         return reg;
     }
 };
@@ -147,6 +147,9 @@ public:
         : expr(_expr)
     {}
 
+    ExpressionPtr getExpr() const
+    { return expr; }
+
     virtual void print(std::ostream &dst) const override{
     }
 
@@ -156,7 +159,11 @@ public:
         int &extra
     ) const override
     {
-        w << "Return" << std::endl;
+        double reg=getExpr()->evaluate(w, bindings, extra);
+        if (reg != 10){
+            w << "add " << reg_name(10) << ", " << reg_name(reg) << ", zero" << std::endl;
+        }
+        w << "ret" << std::endl;
     }
 };
 

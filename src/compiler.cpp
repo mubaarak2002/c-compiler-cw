@@ -51,19 +51,12 @@ void compile(std::ostream &w)
         {31, "."}
     };
 
-    // evaluate it
-    double res=ast->evaluate(w, bindings, extra);
-
     w << ".text" << std::endl;
     w << ".globl f" << std::endl;
     w << std::endl;
 
-    w << "f:" << std::endl;
-    w << "addi  t0, zero, 0" << std::endl;
-    w << "addi  t0, t0,   5" << std::endl;
-    w << "add   a0, zero, t0" << std::endl;
-    w << "ret" << std::endl;
-
+    // evaluate it
+    double res=ast->evaluate(w, bindings, extra);
 }
 
 // TODO: uncomment the below if you're using Flex/Bison.

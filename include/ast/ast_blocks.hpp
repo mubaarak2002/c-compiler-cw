@@ -139,7 +139,32 @@ public:
         double left=getLeft()->evaluate(w, bindings, extra);
         double right=getRight()->evaluate(w, bindings, extra); //should be std::string
         //return name;
-        w << "li "<<reg_name(left)<<","<<reg_name(right)<<std::endl;
+        w << "add "<<reg_name(left)<<", "<<reg_name(right)<<", zero" << std::endl;
+    }
+};
+
+class SimpleFunct
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    SimpleFunct(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+
+        int functname = 2;
+        double left=getLeft()->evaluate(w, bindings, functname);
+        double content=getRight()->evaluate(w, bindings, extra);
+        //return ret;
     }
 };
 

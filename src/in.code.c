@@ -1,4 +1,4 @@
-int f(int a){
-    a = 7 + 6;
-    return a;
+int f()
+{
+    return 5;
 }

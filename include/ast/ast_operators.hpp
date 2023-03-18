@@ -63,7 +63,7 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        w << "add " << reg_name(5) << " "  << reg_name(vl) << " " << reg_name(vr) << std::endl;
+        w << "add " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         return 5;
     }
 };
