@@ -88,8 +88,8 @@ public:
         // TODO-D : Implement this, based on AddOperator::evaluate
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        w << "sub " << vl << " " << vr << std::endl;
-        return vl-vr;
+        w << "sub " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
     }
 };
 
@@ -113,8 +113,8 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        w << "Mul" << std::endl;
-        return vl*vr;
+        w << "mul " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
     }
 };
 
@@ -137,34 +137,9 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        w << "Div" << std::endl;
-        return vl/vr;
+        w << "div " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
     }
 };
-
-class ExpOperator
-    : public Operator
-{
-protected:
-    virtual const char *getOpcode() const override
-    { return "^"; }
-public:
-    ExpOperator(ExpressionPtr _left, ExpressionPtr _right)
-        : Operator(_left, _right)
-    {}
-
-    virtual double evaluate(
-        std::ostream &w,
-        std::map<double,std::string> &bindings,
-        int &extra
-    ) const override
-    {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
-        w << "power" << std::endl;
-        return pow(vl, vr);
-    }
-};
-
 
 #endif
