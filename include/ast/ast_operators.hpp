@@ -61,11 +61,10 @@ public:
         int &extra
     ) const override
     {
-        // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        w << "add " << vl << " " << vr << std::endl;
-        return vl+vr;
+        w << "add " << reg_name(5) << " "  << reg_name(vl) << " " << reg_name(vr) << std::endl;
+        return 5;
     }
 };
 

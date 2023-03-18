@@ -63,7 +63,6 @@ public:
 
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
         double first=getLeft()->evaluate(w, bindings, extra);
-        w << "next: ";
         double next=getRight()->evaluate(w, bindings, extra);
         return first;
     }
@@ -87,10 +86,8 @@ public:
     ) const override
     {
 
-        // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
-        w << "Declare" << std::endl;
         double type=getLeft()->evaluate(w, bindings, extra);
-        double name=getRight()->evaluate(w, bindings, extra); //should be std::string
+        double name=getRight()->evaluate(w, bindings, extra);
         //return name;
     }
 };
@@ -114,10 +111,8 @@ public:
 
     {
 
-        w << "(";
         double left=getLeft()->evaluate(w, bindings, extra);
         double right=getRight()->evaluate(w, bindings, extra); //should be std::string
-        w << ")" << std::endl;
         //return name;
     }
 };
@@ -141,11 +136,10 @@ public:
     ) const override
     {
 
-        w << "Assign: ";
         double left=getLeft()->evaluate(w, bindings, extra);
         double right=getRight()->evaluate(w, bindings, extra); //should be std::string
         //return name;
-        w << "Li "<<reg_name(left)<<","<<right<<std::endl;
+        w << "li "<<reg_name(left)<<","<<reg_name(right)<<std::endl;
     }
 };
 

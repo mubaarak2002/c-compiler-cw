@@ -1,15 +1,9 @@
-
-
--------Function name : Declare
-intType
-Variable: f
--------Arguements: Declare
-intType
-Variable: a
--------Code: Assign: Variable: a
-5
-Li s0,5
-next: Return
+f:
+li t1 7
+li t2 6
+add t0 t1 t2
+li a0,t0
+Return
 
 
 .text

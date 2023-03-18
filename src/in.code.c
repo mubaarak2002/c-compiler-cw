@@ -1,4 +1,4 @@
 int f(int a){
-    a = 5;
+    a = 7 + 6;
     return a;
 }

@@ -29,33 +29,39 @@ public:
         int &extra
     ) const override
     {
-
-        // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
-        // If the binding does not exist, this will throw an error
-        w << "Variable: " << id << std::endl;
-
         double reg = 0;
-
-        if (bindings.at(8.0) == id){ reg = 8.0; }
-        else if (bindings.at(9.0) == id){ reg = 9.0; }
-        else if (reg == 0.0){
-            for(double i = 18; i < 28; i++){
-                if (bindings.at(i) == id){
+        std::string empty = ".";
+        if(extra == 1){ // sets the function arguments (10 - 17)
+            for(double i = 10; i < 18; i++){
+                if (bindings.at(i) == empty){
+                    bindings.at(i) = id;
                     reg = i;
                     break;
                 }
             }
         }
-        std::string empty = ".";
-        if (reg == 0.0){
-            if (bindings.at(8.0) == empty){ bindings.at(8.0) == id; reg = 8.0; }
-            else if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
-            else if (reg == 0.0){
-                for(double i = 18; i < 28; i++){
-                    if (bindings.at(i) == empty){
-                        bindings.at(i) = id;
-                        reg = i;
-                        break;
+
+        else if(extra == 2){ // sets the function label
+            w << id << ":" << std::endl;
+        }
+        else{ // check if variable name already exists
+            for(double i = 0; i < 32; i++){
+                if (bindings.at(i) == id){
+                    reg = i;
+                    break;
+                }
+
+            }
+            if (reg == 0.0){ // makes new variable in a saved register if doesnt already exist
+                if (bindings.at(8.0) == empty){ bindings.at(8.0) == id; reg = 8.0; }
+                else if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
+                else if (reg == 0.0){
+                    for(double i = 18; i < 28; i++){
+                        if (bindings.at(i) == empty){
+                            bindings.at(i) = id;
+                            reg = i;
+                            break;
+                        }
                     }
                 }
             }
@@ -91,10 +97,17 @@ public:
         std::map<double,std::string> &bindings,
         int &extra
     ) const override
-    {
-        // Using li to store in temp register and return register number
-        w << value << std::endl;
-        return value;
+    { // store number into temp registers
+        std::string empty = ".";
+        double reg = 0.0;
+        if (bindings.at(6.0) == empty){ bindings.at(6.0) = value; reg = 6.0;}
+        else if (bindings.at(7.0) == empty){ bindings.at(7.0) = value; reg = 7.0;}
+        else if (bindings.at(28.0) == empty){ bindings.at(28.0) = value; reg = 28.0;}
+        else if (bindings.at(29.0) == empty){ bindings.at(29.0) = value; reg = 29.0;}
+        else if (bindings.at(30.0) == empty){ bindings.at(30.0) = value; reg = 30.0;}
+        else if (bindings.at(31.0) == empty){ bindings.at(31.0) = value; reg = 31.0;}
+        w << "li " << reg_name(reg) << " " << value << std::endl;
+        return reg;
     }
 };
 
@@ -119,9 +132,7 @@ public:
         int &extra
     ) const override
     {
-        // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
-        // If the binding does not exist, this will throw an error
-        w << id << "Type" << std::endl;
+
         //return bindings.at(id);
     }
 };

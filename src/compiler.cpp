@@ -11,7 +11,7 @@
 
 typedef std::map<double,std::string> histogram_type;
 typedef int extra_int;
-extra_int extra;
+extra_int extra = 0;
 
 void compile(std::ostream &w)
 {

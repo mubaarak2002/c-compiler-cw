@@ -69,13 +69,11 @@ public:
     ) const override
     {
 
-        w << std::endl << std::endl << "-------Function name : ";
-        double left=getLeft()->evaluate(w, bindings, extra);
-        w << "-------Arguements: ";
-        double right=getRight()->evaluate(w, bindings, extra);
-        w << "-------Code: ";
+        int functname = 2;
+        double left=getLeft()->evaluate(w, bindings, functname);
+        int isfunct = 1;
+        double right=getRight()->evaluate(w, bindings, isfunct);
         double content = getContent()->evaluate(w, bindings, extra);
-        w << std::endl << std::endl;
         //return ret;
     }
 };
