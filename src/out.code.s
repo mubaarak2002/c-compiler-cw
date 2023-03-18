@@ -2,6 +2,6 @@
 .globl f
 
 f:
-li t1, 5
-add a0, t1, zero
+xor t0, a0, a1
+add a0, t0, zero
 ret

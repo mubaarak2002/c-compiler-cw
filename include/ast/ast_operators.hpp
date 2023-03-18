@@ -142,4 +142,76 @@ public:
     }
 };
 
+class OROperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "|"; }
+public:
+    OROperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "or " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
+class ANDOperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "&"; }
+public:
+    ANDOperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "and " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
+class XOROperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "^"; }
+public:
+    XOROperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "xor " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
 #endif

@@ -19,10 +19,12 @@ return          { return RETURN; }
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }
 [+]             { return T_PLUS; }
-[\^]            { return T_EXPONENT; }
 [-]             { return T_MINUS; }
 [,]             { return COMMA; }
 [=]             { return '='; }
+[\^]            { return '^'; }
+[|]            { return '|'; }
+[&]            { return '&'; }
 
 [(]             { return T_LBRACKET; }
 [)]             { return T_RBRACKET; }

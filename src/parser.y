@@ -48,15 +48,16 @@ FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new UserF
       | DECLARE T_LBRACKET T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new SimpleFunct($1, $5);}
       ;
 
-ARGS : DECLARE  {$$ = $1;}
-     | ARGS COMMA DECLARE {$$ = new Args($1,$3);}
-     ;
-
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
         | ASSIGN ';' { $$ = $1;}
         | RETURN EXPR ';' { $$ = new Return($2);}
+        | DECLARE ';' {;}
         ;
+
+ARGS : DECLARE  {$$ = $1;}
+     | ARGS COMMA DECLARE {$$ = new Args($1,$3);}
+     ;
 
 EXPR : TERM           { $$ = $1; }
      | EXPR T_PLUS TERM  { $$ = new AddOperator($1, $3); }
@@ -66,6 +67,9 @@ EXPR : TERM           { $$ = $1; }
 TERM : UNARY          { $$ = $1; }
      | TERM T_TIMES FACTOR  { $$ = new MulOperator($1, $3); }
      | TERM T_DIVIDE FACTOR  { $$ = new DivOperator($1, $3); }
+     | TERM '|' FACTOR       { $$ = new OROperator($1, $3); }
+     | TERM '&' FACTOR       { $$ = new ANDOperator($1, $3); }
+     | TERM '^' FACTOR       { $$ = new XOROperator($1, $3); }
      ;
 
 UNARY : FACTOR        { $$ = $1; }

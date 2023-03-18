@@ -1,4 +1,4 @@
-int f()
+int f(int x, int y)
 {
-    return 5;
+    return x^y;
 }
