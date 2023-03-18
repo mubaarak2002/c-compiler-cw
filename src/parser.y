@@ -25,7 +25,6 @@
 %token T_NUMBER T_VARIABLE
 %token INT
 %token COMMA
-
 %token RETURN
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN
@@ -45,7 +44,7 @@ SEQ : SECTION    { $$ = $1; }
     | SEQ SECTION  { $$ = new Sequence($1, $2);}
     ;
 
-FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SECTION T_RCURLY {$$ = new UserFunct($1, $3, $6);}
+FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new UserFunct($1, $3, $6);}
       ;
 
 ARGS : DECLARE  {$$ = $1;}
