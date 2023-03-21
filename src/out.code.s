@@ -2,6 +2,8 @@
 .globl f
 
 f:
-xor t0, a0, a1
-add a0, t0, zero
+sgt t0, a0, a1
+xori t0, t0, 1
+add s0, t0, zero
+add a0, s0, zero
 ret

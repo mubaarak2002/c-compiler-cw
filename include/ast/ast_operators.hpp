@@ -214,4 +214,101 @@ public:
     }
 };
 
+class LessThanOperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "^"; }
+public:
+    LessThanOperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "slt " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
+class GreaterThanOperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "^"; }
+public:
+    GreaterThanOperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "sgt " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
+class LessThanEqualOperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "^"; }
+public:
+    LessThanEqualOperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "slt " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        w << "xori " << reg_name(5) << ", " << reg_name(5) << ", 1" << std::endl;
+        return 5;
+    }
+};
+
+class GreaterThanEqualOperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "^"; }
+public:
+    GreaterThanEqualOperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "sgt " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        w << "xori " << reg_name(5) << ", " << reg_name(5) << ", 1" << std::endl;
+        return 5;
+    }
+};
 #endif

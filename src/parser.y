@@ -26,6 +26,7 @@
 %token INT
 %token COMMA
 %token RETURN
+%token LTE GTE
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN
 %type <number> T_NUMBER
@@ -62,6 +63,10 @@ ARGS : DECLARE  {$$ = $1;}
 EXPR : TERM           { $$ = $1; }
      | EXPR T_PLUS TERM  { $$ = new AddOperator($1, $3); }
      | EXPR T_MINUS TERM  { $$ = new SubOperator($1, $3); }
+     | EXPR '<' TERM     { $$ = new LessThanOperator($1, $3); }
+     | EXPR '>' TERM     { $$ = new GreaterThanOperator($1, $3); }
+     | EXPR LTE TERM     { $$ = new LessThanEqualOperator($1, $3); }
+     | EXPR GTE TERM     { $$ = new GreaterThanEqualOperator($1, $3); }
      ;
 
 TERM : UNARY          { $$ = $1; }

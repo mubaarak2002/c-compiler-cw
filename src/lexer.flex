@@ -31,6 +31,10 @@ return          { return RETURN; }
 [{]             { return T_LCURLY; }
 [}]             { return T_RCURLY; }
 [;]             { return ';'; }
+[<]             { return '<'; }
+[>]             { return '>'; }
+"<="            { return GTE; }
+">="            { return LTE; }
 
 
 [-]?({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}
