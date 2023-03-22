@@ -53,9 +53,10 @@ public:
     ) const override
     {
         // TODO-F: Implement this similar to how AddOperator was implemented.
-        double vexpr = getExpr()->evaluate(w, bindings, extra);
-        w << -vexpr << std::endl;
-        return -vexpr;
+        double expr = getExpr()->evaluate(w, bindings, extra);
+        w << "li " << reg_name(5) << ", -1" << std::endl;
+        w << "mul " << reg_name(expr) << ", " << reg_name(5) << ", " << reg_name(expr) << std::endl;
+        return expr;
 
     }
 };
