@@ -68,10 +68,9 @@ public:
         int &extra
     ) const override
     {
-
-        int functname = 2;
+        int functname = -2;
         double left=getLeft()->evaluate(w, bindings, functname);
-        int isfunct = 1;
+        int isfunct = -1;
         double right=getRight()->evaluate(w, bindings, isfunct);
         double content = getContent()->evaluate(w, bindings, extra);
         //return ret;

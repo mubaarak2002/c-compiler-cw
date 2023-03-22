@@ -161,7 +161,7 @@ public:
     ) const override
     {
 
-        int functname = 2;
+        int functname = -2;
         double left=getLeft()->evaluate(w, bindings, functname);
         double content=getRight()->evaluate(w, bindings, extra);
         //return ret;

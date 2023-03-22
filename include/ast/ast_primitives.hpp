@@ -31,7 +31,7 @@ public:
     {
         double reg = 0;
         std::string empty = ".";
-        if(extra == 1){ // sets the function arguments (10 - 17)
+        if(extra == -1){ // sets the function arguments (10 - 17)
             for(double i = 10; i < 18; i++){
                 if (bindings.at(i) == empty){
                     bindings.at(i) = id;
@@ -41,7 +41,7 @@ public:
             }
         }
 
-        else if(extra == 2){ // sets the function label
+        else if(extra == -2){ // sets the function label
             w << id << ":" << std::endl;
         }
         else{ // check if variable name already exists
@@ -164,6 +164,26 @@ public:
             w << "add " << reg_name(10) << ", " << reg_name(reg) << ", zero" << std::endl;
         }
         w << "ret" << std::endl;
+    }
+};
+
+class Empty
+    : public Expression
+{
+private:
+public:
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+
+        //return bindings.at(id);
     }
 };
 
