@@ -85,7 +85,6 @@ public:
         int &extra
     ) const override
     {
-        // TODO-D : Implement this, based on AddOperator::evaluate
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
         w << "sub " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
@@ -371,4 +370,38 @@ public:
     }
 };
 
+class WhileControl
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "If"; }
+public:
+    WhileControl(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        std::string CONDITION = "CONDITION_" + std::to_string(extra);
+        std::string WHILETRUE = "WHILETRUE_" + std::to_string(extra);
+        std::string EXIT = "EXIT_" + std::to_string(extra);
+        extra++;
+        w << "j " << CONDITION << std::endl;
+        w << CONDITION << ":" << std::endl;
+        double expr=getLeft()->evaluate(w, bindings, extra);
+        w << "add " << reg_name(5) << ", " << reg_name(expr) << ", zero" << std::endl;
+        w << "beq " << reg_name(5) << ", zero, " << EXIT << std::endl;
+        w << "j " << WHILETRUE << std::endl;
+        w << WHILETRUE << ":" << std::endl;
+        double content=getRight()->evaluate(w, bindings, extra);
+        w << "j " << CONDITION << std::endl;
+        w << EXIT << ":" << std::endl;
+        return 5;
+    }
+};
 #endif
