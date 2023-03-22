@@ -16,16 +16,6 @@ Num [0-9]
 int             {  yylval.string=new std::string(yytext); return INT; }
 return          { return RETURN; }
 
-[*]             { return T_TIMES; }
-[/]             { return T_DIVIDE; }
-[+]             { return T_PLUS; }
-[-]             { return T_MINUS; }
-[,]             { return COMMA; }
-[=]             { return '='; }
-[\^]            { return '^'; }
-[|]            { return '|'; }
-[&]            { return '&'; }
-
 [(]             { return T_LBRACKET; }
 [)]             { return T_RBRACKET; }
 [{]             { return T_LCURLY; }
@@ -35,6 +25,17 @@ return          { return RETURN; }
 [>]             { return '>'; }
 "<="            { return GTE; }
 ">="            { return LTE; }
+"=="            { return EQUAL; }
+
+[*]             { return T_TIMES; }
+[/]             { return T_DIVIDE; }
+[+]             { return T_PLUS; }
+[-]             { return T_MINUS; }
+[,]             { return COMMA; }
+[=]             { return '='; }
+[\^]            { return '^'; }
+[|]            { return '|'; }
+[&]            { return '&'; }
 
 
 [-]?({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}

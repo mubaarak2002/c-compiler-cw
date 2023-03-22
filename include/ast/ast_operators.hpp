@@ -311,4 +311,31 @@ public:
         return 5;
     }
 };
+
+class EqualOperator
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "^"; }
+public:
+    EqualOperator(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "li " << reg_name(5) << ", -1" << std::endl;
+        w << "mul " << reg_name(5) << ", " << reg_name(5) << ", " << reg_name(vr) << std::endl;
+        w << "add " << reg_name(5) << ", " << reg_name(5) << ", " << reg_name(vl) << std::endl;
+        w << "seqz " << reg_name(5) << ", " << reg_name(5) << std::endl;
+        return 5;
+    }
+};
 #endif
