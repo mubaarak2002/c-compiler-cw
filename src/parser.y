@@ -50,6 +50,8 @@ FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
 
 CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl($3, $6, $10); }
         | IF '(' EXPR ')' '{' SEQ '}' { $$ = new IfControl($3, $6); }
+        | WHILE '(' EXPR ')' '{' SEQ '}' { $$ = new WhileControl($3, $6 ); }
+        | WHILE '(' EXPR ')' '{''}' { $$ = new WhileControl($3, new Empty()); }
         ;
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
@@ -65,7 +67,7 @@ ARGS : DECLARE  {$$ = $1;}
 
 EXPR : TERM           { $$ = $1; }
      | EXPR T_PLUS TERM  { $$ = new AddOperator($1, $3); }
-     | EXPR T_MINUS TERM  { $$ = new SubOperator($1, $3); }
+     | EXPR T_MINUS TERM { $$ = new SubOperator($1, $3); }
      | EXPR '<' TERM     { $$ = new LessThanOperator($1, $3); }
      | EXPR '>' TERM     { $$ = new GreaterThanOperator($1, $3); }
      | EXPR LTE TERM     { $$ = new LessThanEqualOperator($1, $3); }

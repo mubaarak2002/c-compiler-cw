@@ -2,18 +2,15 @@
 .globl f
 
 f:
+j CONDITION_0
+CONDITION_0:
 li t1, 0
 add t0, t1, zero
-beq t0, zero, ELSE_0
-j IFTRUE_0
-IFTRUE_0:
-li t2, 11
+beq t0, zero, EXIT_0
+j WHILETRUE_0
+WHILETRUE_0:
+j CONDITION_0
+EXIT_0:
+li t2, 19937
 add a0, t2, zero
 ret
-j ENDIF_0
-ELSE_0:
-li t3, 10
-add a0, t3, zero
-ret
-j ENDIF_0
-ENDIF_0:

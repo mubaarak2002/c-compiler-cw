@@ -1,9 +1,7 @@
 int f()
 {
-    if(0){
-        return 11;
+    while(0){
+
     }
-    else{
-    return 10;
-    }
+    return 19937;
 }
