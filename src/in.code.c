@@ -1,7 +1,8 @@
+int g(){
+    return 55;
+}
+
 int f()
 {
-    while(0){
-
-    }
-    return 19937;
+    return g();
 }

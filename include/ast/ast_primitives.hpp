@@ -44,6 +44,9 @@ public:
         else if(extra == -2){ // sets the function label
             w << id << ":" << std::endl;
         }
+        else if(extra == -3){ // call function
+            w << "j " << id << std::endl;
+        }
         else{ // check if variable name already exists
             for(double i = 0; i < 32; i++){
                 if (bindings.at(i) == id){
@@ -164,6 +167,34 @@ public:
             w << "add " << reg_name(10) << ", " << reg_name(reg) << ", zero" << std::endl;
         }
         w << "ret" << std::endl;
+    }
+};
+
+class FunctCall
+    : public Expression
+{
+private:
+    ExpressionPtr expr;
+public:
+    FunctCall(const ExpressionPtr _expr)
+        : expr(_expr)
+    {}
+
+    ExpressionPtr getExpr() const
+    { return expr; }
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        int callFunct = -3;
+        double expr=getExpr()->evaluate(w, bindings, callFunct);
+        return 10;
     }
 };
 

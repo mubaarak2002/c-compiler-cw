@@ -46,12 +46,14 @@ SEQ : SECTION    { $$ = $1; }
 
 FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
       | DECLARE '(' ')' '{' SEQ '}' {$$ = new SimpleFunct($1, $5);}
+      | DECLARE '(' ARGS ')' ';' {$$ = new Empty(); }
+      | DECLARE '(' ')' ';' { $$ = new Empty(); }
       ;
 
 CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl($3, $6, $10); }
         | IF '(' EXPR ')' '{' SEQ '}' { $$ = new IfControl($3, $6); }
         | WHILE '(' EXPR ')' '{' SEQ '}' { $$ = new WhileControl($3, $6 ); }
-        | WHILE '(' EXPR ')' '{''}' { $$ = new WhileControl($3, new Empty()); }
+        | WHILE '(' EXPR ')' '{''}' { $$ = new Empty(); }
         ;
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
@@ -85,6 +87,7 @@ TERM : UNARY          { $$ = $1; }
 
 UNARY : FACTOR        { $$ = $1; }
       | T_MINUS FACTOR  { $$ = new NegOperator($2); }
+      | FACTOR '(' ')' { $$ = new FunctCall($1); }
       ;
 
 FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
