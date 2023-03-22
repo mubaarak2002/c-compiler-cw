@@ -26,6 +26,15 @@ return          { return RETURN; }
 "<="            { return GTE; }
 ">="            { return LTE; }
 "=="            { return EQUAL; }
+"if"            { return IF; }
+"else"          { return ELSE; }
+"while"         { return WHILE; }
+"for"           { return FOR; }
+"break"         { return BREAK; }
+"continue"      { return CONTINUE; }
+"switch"        { return SWITCH; }
+"case"          { return CASE; }
+"default"       { return DEFAULT; }
 
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }
