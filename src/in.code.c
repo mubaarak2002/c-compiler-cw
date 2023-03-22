@@ -1,6 +1,7 @@
-int f(int x, int y)
+int f()
 {
-    int z;
-    z= x == (x+y);
-    return z;
+    if(0){
+        return 11;
+    }
+    return 10;
 }

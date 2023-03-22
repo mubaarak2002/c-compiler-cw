@@ -338,4 +338,37 @@ public:
         return 5;
     }
 };
+
+class IfControl
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "If"; }
+public:
+    IfControl(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double expr=getLeft()->evaluate(w, bindings, extra);
+        std::string IFTRUE = "IFTRUE_" + std::to_string(extra);
+        std::string ENDIF = "ENDIF_" + std::to_string(extra);
+        extra++;
+        w << "add " << reg_name(5) << ", " << reg_name(expr) << ", zero" << std::endl;
+        w << "beq " << reg_name(5) << ", zero, " << ENDIF <<std::endl;
+        w << "j " << IFTRUE << std::endl;
+        w << IFTRUE << ":" << std::endl;
+        double content=getRight()->evaluate(w, bindings, extra);
+        w << "j " << ENDIF << std::endl;
+        w << ENDIF << ":" << std::endl;
+        return 5;
+    }
+};
+
 #endif

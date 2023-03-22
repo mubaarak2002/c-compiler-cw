@@ -16,10 +16,10 @@ Num [0-9]
 int             {  yylval.string=new std::string(yytext); return INT; }
 return          { return RETURN; }
 
-[(]             { return T_LBRACKET; }
-[)]             { return T_RBRACKET; }
-[{]             { return T_LCURLY; }
-[}]             { return T_RCURLY; }
+[(]             { return '('; }
+[)]             { return ')'; }
+[{]             { return '{'; }
+[}]             { return '}'; }
 [;]             { return ';'; }
 [<]             { return '<'; }
 [>]             { return '>'; }

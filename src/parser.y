@@ -21,14 +21,13 @@
 }
 
 %token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
-%token T_LBRACKET T_RBRACKET T_LCURLY T_RCURLY
 %token T_NUMBER T_VARIABLE
 %token INT
 %token COMMA
 %token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN
 %token LTE GTE EQUAL
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN CONTROL
 %type <number> T_NUMBER
 %type <string> T_VARIABLE INT
 
@@ -45,15 +44,19 @@ SEQ : SECTION    { $$ = $1; }
     | SEQ SECTION  { $$ = new Sequence($1, $2);}
     ;
 
-FUNCT : DECLARE T_LBRACKET ARGS T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new UserFunct($1, $3, $6);}
-      | DECLARE T_LBRACKET T_RBRACKET T_LCURLY SEQ T_RCURLY {$$ = new SimpleFunct($1, $5);}
+FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
+      | DECLARE '(' ')' '{' SEQ '}' {$$ = new SimpleFunct($1, $5);}
       ;
 
+CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { ; }
+        | IF '(' EXPR ')' '{' SEQ '}' { $$ = new IfControl($3, $6); }
+        ;
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
         | ASSIGN ';' { $$ = $1;}
         | RETURN EXPR ';' { $$ = new Return($2);}
         | DECLARE ';' {;}
+        | CONTROL { $$ = $1; }
         ;
 
 ARGS : DECLARE  {$$ = $1;}
@@ -84,7 +87,7 @@ UNARY : FACTOR        { $$ = $1; }
 
 FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
        | T_VARIABLE   { $$ = new Variable( *$1 ); }
-       | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
+       | '(' EXPR ')' { $$ = $2; }
        ;
 
 TYPE : INT  {$$ = new Type( *$1 );}
@@ -99,7 +102,7 @@ DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}
 
 %%
 
-const Expression *g_root; // Definition of variable (to match declaration earlier)
+const Expression *g_root; //$$ = new IfElseControl($3, $6, $10)
 
 const Expression *parseAST()
 {
