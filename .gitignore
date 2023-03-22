@@ -8,3 +8,4 @@ parser.output
 *.yy.*
 *.tab.*
 *.o
+*.code.*
