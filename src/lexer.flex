@@ -47,7 +47,7 @@ return          { return RETURN; }
 [&]            { return '&'; }
 
 
-[-]?({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}
+({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}
 
 {Letter}+       { yylval.string=new std::string(yytext); return T_VARIABLE; }
 
