@@ -78,5 +78,42 @@ public:
     }
 };
 
+class IfElseControl
+    : public Function
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    IfElseControl(ExpressionPtr _left, ExpressionPtr _right, ExpressionPtr _content)
+        : Function(_left, _right, _content)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+
+        double expr=getLeft()->evaluate(w, bindings, extra);
+        std::string IFTRUE = "IFTRUE_" + std::to_string(extra);
+        std::string ELSE = "ELSE_" + std::to_string(extra);
+        std::string ENDIF = "ENDIF_" + std::to_string(extra);
+        extra++;
+        w << "add " << reg_name(5) << ", " << reg_name(expr) << ", zero" << std::endl;
+        w << "beq " << reg_name(5) << ", zero, " << ELSE <<std::endl;
+        w << "j " << IFTRUE << std::endl;
+        w << IFTRUE << ":" << std::endl;
+        double content=getRight()->evaluate(w, bindings, extra);
+        w << "j " << ENDIF << std::endl;
+        w << ELSE << ":" << std::endl;
+        double else_content=getContent()->evaluate(w, bindings, extra);
+        w << "j " << ENDIF << std::endl;
+        w << ENDIF << ":" << std::endl;
+        return 5;
+    }
+};
+
 
 #endif

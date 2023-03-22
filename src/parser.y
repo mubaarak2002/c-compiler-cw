@@ -48,7 +48,7 @@ FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
       | DECLARE '(' ')' '{' SEQ '}' {$$ = new SimpleFunct($1, $5);}
       ;
 
-CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { ; }
+CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl($3, $6, $10); }
         | IF '(' EXPR ')' '{' SEQ '}' { $$ = new IfControl($3, $6); }
         ;
 SECTION : EXPR ';' {$$ = $1;}
@@ -102,7 +102,7 @@ DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}
 
 %%
 
-const Expression *g_root; //$$ = new IfElseControl($3, $6, $10)
+const Expression *g_root; //
 
 const Expression *parseAST()
 {
