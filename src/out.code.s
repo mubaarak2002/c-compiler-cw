@@ -3,6 +3,7 @@
 
 f:
 li a0, 1
+li a1, 2
 j g
 li t1, 1
 li t0, -1

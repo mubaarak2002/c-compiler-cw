@@ -117,7 +117,30 @@ public:
     }
 };
 
+class CallArgs
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    CallArgs(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
 
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+
+    {
+        double left=getLeft()->evaluate(w, bindings, extra);
+        extra--;
+        double right=getRight()->evaluate(w, bindings, extra);
+        //return ;
+    }
+};
 class Assign
     : public Block
 {

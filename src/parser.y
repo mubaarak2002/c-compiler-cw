@@ -53,6 +53,7 @@ FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
 
 FUNCT_CALL : FACTOR '(' ')' { $$ = new FunctCall($1); }
            | FACTOR '(' FACTOR ')' { $$ = new FunctCallwArgs($1, $3); }
+           | FACTOR '(' ARGS ')' { $$ = new FunctCallwArgs($1, $3); }
            ;
 
 CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl($3, $6, $10); }
@@ -73,6 +74,8 @@ SECTION : EXPR ';' {$$ = $1;}
 
 ARGS : DECLARE  {$$ = $1;}
      | ARGS COMMA DECLARE {$$ = new Args($1,$3);}
+     | FACTOR COMMA FACTOR { $$ = new CallArgs($1, $3); }
+     | ARGS COMMA FACTOR { $$ = new CallArgs($1, $3); }
      ;
 
 EXPR : TERM           { $$ = $1; }
