@@ -55,6 +55,9 @@ public:
                 }
 
             }
+            if(extra <= -4){ // call function
+            w << "add " << reg_name(6-extra) << ", " << reg_name(reg) << ", zero" <<  std::endl;
+            }
             if (reg == 0.0){ // makes new variable in a saved register if doesnt already exist
                 if (bindings.at(8.0) == empty){ bindings.at(8.0) == id; reg = 8.0; }
                 else if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
@@ -101,16 +104,21 @@ public:
         int &extra
     ) const override
     { // store number into temp registers
-        std::string empty = ".";
-        double reg = 0.0;
-        if (bindings.at(6.0) == empty){ bindings.at(6.0) = value; reg = 6.0;}
-        else if (bindings.at(7.0) == empty){ bindings.at(7.0) = value; reg = 7.0;}
-        else if (bindings.at(28.0) == empty){ bindings.at(28.0) = value; reg = 28.0;}
-        else if (bindings.at(29.0) == empty){ bindings.at(29.0) = value; reg = 29.0;}
-        else if (bindings.at(30.0) == empty){ bindings.at(30.0) = value; reg = 30.0;}
-        else if (bindings.at(31.0) == empty){ bindings.at(31.0) = value; reg = 31.0;}
-        w << "li " << reg_name(reg) << ", " << value << std::endl;
-        return reg;
+        if(extra <= -4){
+            w << "li " << reg_name(6-extra) << ", " << value << std::endl;
+        }
+        else{
+            std::string empty = ".";
+            double reg = 0.0;
+            if (bindings.at(6.0) == empty){ bindings.at(6.0) = value; reg = 6.0;}
+            else if (bindings.at(7.0) == empty){ bindings.at(7.0) = value; reg = 7.0;}
+            else if (bindings.at(28.0) == empty){ bindings.at(28.0) = value; reg = 28.0;}
+            else if (bindings.at(29.0) == empty){ bindings.at(29.0) = value; reg = 29.0;}
+            else if (bindings.at(30.0) == empty){ bindings.at(30.0) = value; reg = 30.0;}
+            else if (bindings.at(31.0) == empty){ bindings.at(31.0) = value; reg = 31.0;}
+            w << "li " << reg_name(reg) << ", " << value << std::endl;
+            return reg;
+        }
     }
 };
 

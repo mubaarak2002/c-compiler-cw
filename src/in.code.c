@@ -3,6 +3,5 @@ int g();
 int f()
 {
     int x;
-    x = (x+x)*(x+x);
-    return x;;
+    return g(1);
 }

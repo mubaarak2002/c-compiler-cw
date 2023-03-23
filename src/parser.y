@@ -52,6 +52,7 @@ FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
       ;
 
 FUNCT_CALL : FACTOR '(' ')' { $$ = new FunctCall($1); }
+           | FACTOR '(' FACTOR ')' { $$ = new FunctCallwArgs($1, $3); }
            ;
 
 CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl($3, $6, $10); }

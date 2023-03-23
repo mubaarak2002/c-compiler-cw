@@ -168,4 +168,29 @@ public:
     }
 };
 
+class FunctCallwArgs
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    FunctCallwArgs(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        int functArgs = -4;
+        double args=getRight()->evaluate(w, bindings, functArgs);
+        int callFunct = -3;
+        double left=getLeft()->evaluate(w, bindings, callFunct);
+        return 10;
+    }
+};
+
 #endif
