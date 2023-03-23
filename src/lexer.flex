@@ -23,6 +23,8 @@ return          { return RETURN; }
 [;]             { return ';'; }
 [<]             { return '<'; }
 [>]             { return '>'; }
+"["             { return '['; }
+"]"             { return ']'; }
 "<="            { return GTE; }
 ">="            { return LTE; }
 "=="            { return EQUAL; }
@@ -35,6 +37,10 @@ return          { return RETURN; }
 "switch"        { return SWITCH; }
 "case"          { return CASE; }
 "default"       { return DEFAULT; }
+"++"            { return INCREMENT; }
+"--"            { return DECREMENT; }
+"+="            { return ADD_ASS; }
+"-="            { return SUB_ASS; }
 
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }

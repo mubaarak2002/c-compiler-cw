@@ -1,10 +1,7 @@
 .text
 .globl f
 
-g:
-li t1, 55
-add a0, t1, zero
-ret
-f:
-j g
-ret
+li t1, 5
+add s0, t1, zero
+li t2, 1
+sub s0, s0, t2

@@ -1,8 +1,2 @@
-int g(){
-    return 55;
-}
-
-int f()
-{
-    return g();
-}
+int a = 5;
+a -= 1;

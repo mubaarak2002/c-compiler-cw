@@ -20,12 +20,13 @@
   std::string *string;
 }
 
-%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
+%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT ADD_ASS SUB_ASS
 %token T_NUMBER T_VARIABLE
 %token INT
 %token COMMA
 %token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN
 %token LTE GTE EQUAL
+%token INCREMENT DECREMENT
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN CONTROL
 %type <number> T_NUMBER
@@ -54,6 +55,8 @@ CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl(
         | IF '(' EXPR ')' '{' SEQ '}' { $$ = new IfControl($3, $6); }
         | WHILE '(' EXPR ')' '{' SEQ '}' { $$ = new WhileControl($3, $6 ); }
         | WHILE '(' EXPR ')' '{''}' { $$ = new Empty(); }
+        | FOR '(' SECTION SECTION ASSIGN ')' '{' SEQ '}' { $$ = new ForControl($3, $4, $5, $8); }
+        | FOR '(' SECTION SECTION EXPR ')' '{' SEQ '}' { $$ = new ForControl($3, $4, $5, $8); }
         ;
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
@@ -75,6 +78,8 @@ EXPR : TERM           { $$ = $1; }
      | EXPR LTE TERM     { $$ = new LessThanEqualOperator($1, $3); }
      | EXPR GTE TERM     { $$ = new GreaterThanEqualOperator($1, $3); }
      | EXPR EQUAL TERM   { $$ = new EqualOperator($1, $3); }
+     | EXPR INCREMENT    { $$ = new Increment($1); }
+     | EXPR DECREMENT    { $$ = new Decrement($1); }
      ;
 
 TERM : UNARY          { $$ = $1; }
@@ -100,6 +105,8 @@ TYPE : INT  {$$ = new Type( *$1 );}
 
 ASSIGN : FACTOR '=' EXPR { $$ = new Assign($1, $3); }
        | DECLARE '=' EXPR { $$ = new Assign($1, $3); }
+       | EXPR ADD_ASS TERM { $$ = new AddAssign($1, $3); }
+       | EXPR SUB_ASS TERM { $$ = new SubAssign($1, $3); }
        ;
 
 DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}

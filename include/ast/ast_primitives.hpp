@@ -170,6 +170,60 @@ public:
     }
 };
 
+class Increment
+    : public Expression
+{
+private:
+    ExpressionPtr expr;
+public:
+    Increment(const ExpressionPtr _expr)
+        : expr(_expr)
+    {}
+
+    ExpressionPtr getExpr() const
+    { return expr; }
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double reg=getExpr()->evaluate(w, bindings, extra);
+        w << "addi " << reg_name(reg) << ", " << reg_name(reg) << ", 1" << std::endl;
+    }
+};
+
+class Decrement
+    : public Expression
+{
+private:
+    ExpressionPtr expr;
+public:
+    Decrement(const ExpressionPtr _expr)
+        : expr(_expr)
+    {}
+
+    ExpressionPtr getExpr() const
+    { return expr; }
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double reg=getExpr()->evaluate(w, bindings, extra);
+        w << "addi " << reg_name(reg) << ", " << reg_name(reg) << ", -1" << std::endl;
+    }
+};
+
 class FunctCall
     : public Expression
 {

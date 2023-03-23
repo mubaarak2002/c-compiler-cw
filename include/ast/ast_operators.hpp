@@ -68,6 +68,30 @@ public:
     }
 };
 
+class AddAssign
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    AddAssign(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "add " << reg_name(vl) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
 class SubOperator
     : public Operator
 {
@@ -88,6 +112,30 @@ public:
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
         w << "sub " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return 5;
+    }
+};
+
+class SubAssign
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    SubAssign(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "sub " << reg_name(vl) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         return 5;
     }
 };
@@ -404,4 +452,5 @@ public:
         return 5;
     }
 };
+
 #endif
