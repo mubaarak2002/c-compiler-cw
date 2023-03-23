@@ -28,7 +28,7 @@
 %token LTE GTE EQUAL
 %token INCREMENT DECREMENT
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT ASSIGN CONTROL
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL
 %type <number> T_NUMBER
 %type <string> T_VARIABLE INT
 
@@ -51,6 +51,9 @@ FUNCT : DECLARE '(' ARGS ')' '{' SEQ '}' {$$ = new UserFunct($1, $3, $6);}
       | DECLARE '(' ')' ';' { $$ = new Empty(); }
       ;
 
+FUNCT_CALL : FACTOR '(' ')' { $$ = new FunctCall($1); }
+           ;
+
 CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl($3, $6, $10); }
         | IF '(' EXPR ')' '{' SEQ '}' { $$ = new IfControl($3, $6); }
         | WHILE '(' EXPR ')' '{' SEQ '}' { $$ = new WhileControl($3, $6 ); }
@@ -58,6 +61,7 @@ CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl(
         | FOR '(' SECTION SECTION ASSIGN ')' '{' SEQ '}' { $$ = new ForControl($3, $4, $5, $8); }
         | FOR '(' SECTION SECTION EXPR ')' '{' SEQ '}' { $$ = new ForControl($3, $4, $5, $8); }
         ;
+
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
         | ASSIGN ';' { $$ = $1;}
@@ -92,7 +96,7 @@ TERM : UNARY          { $$ = $1; }
 
 UNARY : FACTOR        { $$ = $1; }
       | T_MINUS FACTOR  { $$ = new NegOperator($2); }
-      | FACTOR '(' ')' { $$ = new FunctCall($1); }
+      | FUNCT_CALL       { $$ = $1; }
       ;
 
 FACTOR : T_NUMBER     { $$ = new Number( $1 ); }

@@ -1,2 +1,8 @@
-int a = 5;
-a -= 1;
+int g();
+
+int f()
+{
+    int x;
+    x = (x+x)*(x+x);
+    return x;;
+}
