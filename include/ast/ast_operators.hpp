@@ -481,4 +481,69 @@ public:
     }
 };
 
+class LogicalAnd
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "&"; }
+public:
+    LogicalAnd(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        w << "addi t0, " << reg_name(vl) << ", 0" << std::endl;
+        w << "beq t0, zero, .FALSE" << std::endl;
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "addi t0, " << reg_name(vr) << ", 0" << std::endl;
+        w << "beq t0, zero, .FALSE" << std::endl;
+        w << "li " << reg_name(5) << " ,1" << std::endl;
+        w << "j .TRUE" << std::endl;
+        w << ".FALSE:" << std::endl;
+        w << "li " << reg_name(5) << " ,0" << std::endl;
+        w << ".TRUE:" << std::endl;
+        return 5;
+    }
+};
+
+class LogicalOr
+    : public Operator
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "&"; }
+public:
+    LogicalOr(ExpressionPtr _left, ExpressionPtr _right)
+        : Operator(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        double vl=getLeft()->evaluate(w, bindings, extra);
+        w << "addi t0, " << reg_name(vl) << ", 0" << std::endl;
+        w << "bne t0, zero, .TRUE" << std::endl;
+        double vr=getRight()->evaluate(w, bindings, extra);
+        w << "addi t0, " << reg_name(vr) << ", 0" << std::endl;
+        w << "beq t0, zero, .FALSE" << std::endl;
+        w << ".TRUE:" << std::endl;
+        w << "li " << reg_name(5) << " ,1" << std::endl;
+        w << "j .END" <<std::endl;
+        w << ".FALSE:" << std::endl;
+        w << "li " << reg_name(5) << " ,0" << std::endl;
+        w << ".END:" << std::endl;
+        return 5;
+    }
+};
+
 #endif

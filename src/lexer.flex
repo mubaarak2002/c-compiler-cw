@@ -43,6 +43,8 @@ return          { return RETURN; }
 "+="            { return ADD_ASS; }
 "-="            { return SUB_ASS; }
 "!"             { return NOT; }
+"&&"            { return LOG_AND;}
+"||"            { return LOG_OR; }
 
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }

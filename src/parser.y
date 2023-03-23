@@ -25,7 +25,7 @@
 %token INT
 %token COMMA
 %token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN
-%token LTE GTE EQUAL NOTEQUAL
+%token LTE GTE EQUAL NOTEQUAL LOG_AND LOG_OR
 %token INCREMENT DECREMENT
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL
@@ -91,6 +91,8 @@ EXPR : TERM           { $$ = $1; }
      | EXPR NOTEQUAL TERM   { $$ = new NotEqualOperator($1, $3); }
      | EXPR INCREMENT    { $$ = new Increment($1); }
      | EXPR DECREMENT    { $$ = new Decrement($1); }
+     | EXPR LOG_AND TERM { $$ = new LogicalAnd($1, $3); }
+     | EXPR LOG_OR TERM { $$ = new LogicalOr($1, $3); }
      ;
 
 TERM : UNARY          { $$ = $1; }

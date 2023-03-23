@@ -1,10 +1,14 @@
 .text
 .globl f
 
-f:
-x:
-.zero 32
-li t1, 13
-add s0, t1, zero
-add a0, s0, zero
+addi t0, s0, 0
+beq t0, zero, .FALSE
+addi t0, s1, 0
+beq t0, zero, .FALSE
+li t0 ,1
+j .TRUE
+.FALSE:
+li t0 ,0
+.TRUE:
+add a0, t0, zero
 ret
