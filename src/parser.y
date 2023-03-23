@@ -62,13 +62,15 @@ CONTROL : IF '(' EXPR ')' '{' SEQ '}' ELSE '{' SEQ '}' { $$ = new IfElseControl(
         | WHILE '(' EXPR ')' '{''}' { $$ = new Empty(); }
         | FOR '(' SECTION SECTION ASSIGN ')' '{' SEQ '}' { $$ = new ForControl($3, $4, $5, $8); }
         | FOR '(' SECTION SECTION EXPR ')' '{' SEQ '}' { $$ = new ForControl($3, $4, $5, $8); }
+        | FOR '(' SECTION SECTION ASSIGN ')' '{'  '}' { $$ = new ForControl($3, $4, $5, new Empty()); }
+        | FOR '(' SECTION SECTION EXPR ')' '{'  '}' { $$ = new ForControl($3, $4, $5, new Empty()); }
         ;
 
 SECTION : EXPR ';' {$$ = $1;}
         | FUNCT {$$ = $1;}
         | ASSIGN ';' { $$ = $1;}
         | RETURN EXPR ';' { $$ = new Return($2);}
-        | DECLARE ';' {;}
+        | DECLARE ';' { $$ = $1; }
         | CONTROL { $$ = $1; }
         ;
 

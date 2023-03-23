@@ -74,24 +74,25 @@ public:
         int &extra
     ) const override
     {
-
-        // double expr=getLeft()->evaluate(w, bindings, extra);
-        // std::string IFTRUE = "IFTRUE_" + std::to_string(extra);
-        // std::string ELSE = "ELSE_" + std::to_string(extra);
-        // std::string ENDIF = "ENDIF_" + std::to_string(extra);
-        // extra++;
-        // w << "add " << reg_name(5) << ", " << reg_name(expr) << ", zero" << std::endl;
-        // w << "beq " << reg_name(5) << ", zero, " << ELSE <<std::endl;
-        // w << "j " << IFTRUE << std::endl;
-        // w << IFTRUE << ":" << std::endl;
-        // double content=getRight()->evaluate(w, bindings, extra);
-        // w << "j " << ENDIF << std::endl;
-        // w << ELSE << ":" << std::endl;
-        // double else_content=getContent()->evaluate(w, bindings, extra);
-        // w << "j " << ENDIF << std::endl;
-        // w << ENDIF << ":" << std::endl;
-        // return 5;
-        w << "for loop " << std::endl;
+        double init = getInit()->evaluate(w, bindings, extra);
+        std::string CONDITION = "CONDITION_" + std::to_string(extra);
+        std::string FORLOOP = "FORLOOP_" + std::to_string(extra);
+        std::string INCR = "INCR_" + std::to_string(extra);
+        std::string EXIT = "EXIT_" + std::to_string(extra);
+        extra++;
+        w << "j " << CONDITION << std::endl;
+        w << CONDITION << ":" << std::endl;
+        double condition = getCond()->evaluate(w, bindings, extra);
+        w << "add " << reg_name(5) << ", " << reg_name(condition) << ", zero" << std::endl;
+        w << "beq " << reg_name(5) << ", zero, " << EXIT <<std::endl;
+        w << "j " << FORLOOP << std::endl;
+        w << FORLOOP << ":" << std::endl;
+        double content = getContent()->evaluate(w, bindings, extra);
+        w << "j " << INCR << std::endl;
+        w << INCR << ":" << std::endl;
+        double increment = getIncr()->evaluate(w, bindings, extra);
+        w << "j " << CONDITION << std::endl;
+        w << EXIT << ":" << std::endl;
     }
 };
 

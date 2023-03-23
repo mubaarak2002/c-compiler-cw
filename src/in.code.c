@@ -1,7 +1,6 @@
-int g();
-
 int f()
 {
-    int x;
-    return !(g(1,2) != 1);
+    int y = 0;
+    int x = 2;
+    return 1;
 }
