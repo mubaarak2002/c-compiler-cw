@@ -3,5 +3,5 @@ int g();
 int f()
 {
     int x;
-    return g(1);
+    return !(g(1) != 1);
 }

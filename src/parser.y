@@ -20,12 +20,12 @@
   std::string *string;
 }
 
-%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT ADD_ASS SUB_ASS
+%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT ADD_ASS SUB_ASS NOT
 %token T_NUMBER T_VARIABLE
 %token INT
 %token COMMA
 %token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN
-%token LTE GTE EQUAL
+%token LTE GTE EQUAL NOTEQUAL
 %token INCREMENT DECREMENT
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL
@@ -83,6 +83,7 @@ EXPR : TERM           { $$ = $1; }
      | EXPR LTE TERM     { $$ = new LessThanEqualOperator($1, $3); }
      | EXPR GTE TERM     { $$ = new GreaterThanEqualOperator($1, $3); }
      | EXPR EQUAL TERM   { $$ = new EqualOperator($1, $3); }
+     | EXPR NOTEQUAL TERM   { $$ = new NotEqualOperator($1, $3); }
      | EXPR INCREMENT    { $$ = new Increment($1); }
      | EXPR DECREMENT    { $$ = new Decrement($1); }
      ;
@@ -97,6 +98,7 @@ TERM : UNARY          { $$ = $1; }
 
 UNARY : FACTOR        { $$ = $1; }
       | T_MINUS FACTOR  { $$ = new NegOperator($2); }
+      | NOT FACTOR       { $$ = new NotOperator($2); }
       | FUNCT_CALL       { $$ = $1; }
       ;
 

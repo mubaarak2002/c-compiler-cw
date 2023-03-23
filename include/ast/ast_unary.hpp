@@ -61,4 +61,28 @@ public:
     }
 };
 
+class NotOperator
+    : public Unary
+{
+public:
+    NotOperator(const ExpressionPtr _expr)
+        : Unary(_expr)
+    {}
+
+    virtual const char *getOpcode() const override
+    { return "-"; }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        // TODO-F: Implement this similar to how AddOperator was implemented.
+        double expr = getExpr()->evaluate(w, bindings, extra);
+        w << "seqz " << reg_name(expr) << ", " << reg_name(expr) << std::endl;
+        return expr;
+
+    }
+};
 #endif

@@ -28,6 +28,7 @@ return          { return RETURN; }
 "<="            { return GTE; }
 ">="            { return LTE; }
 "=="            { return EQUAL; }
+"!="            { return NOTEQUAL; }
 "if"            { return IF; }
 "else"          { return ELSE; }
 "while"         { return WHILE; }
@@ -41,6 +42,7 @@ return          { return RETURN; }
 "--"            { return DECREMENT; }
 "+="            { return ADD_ASS; }
 "-="            { return SUB_ASS; }
+"!"             { return NOT; }
 
 [*]             { return T_TIMES; }
 [/]             { return T_DIVIDE; }
