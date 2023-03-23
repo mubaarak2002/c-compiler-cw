@@ -59,8 +59,8 @@ public:
             w << "add " << reg_name(6-extra) << ", " << reg_name(reg) << ", zero" <<  std::endl;
             }
             if (reg == 0.0){ // makes new variable in a saved register if doesnt already exist
-                if (bindings.at(8.0) == empty){ bindings.at(8.0) == id; reg = 8.0; }
-                else if (bindings.at(9.0) == empty){ bindings.at(9.0) == id; reg = 9.0; }
+                if (bindings.at(8.0) == empty){ bindings.at(8.0) = id; reg = 8.0; }
+                else if (bindings.at(9.0) == empty){ bindings.at(9.0) = id; reg = 9.0; }
                 else if (reg == 0.0){
                     for(double i = 18; i < 28; i++){
                         if (bindings.at(i) == empty){
