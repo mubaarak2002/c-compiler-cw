@@ -216,4 +216,30 @@ public:
     }
 };
 
+class ArrayDecleration
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    ArrayDecleration(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        int arrname = -2;
+        int getval = -3;
+        double left=getLeft()->evaluate(w, bindings, arrname);
+        double value=getRight()->evaluate(w, bindings, getval);
+        w << ".zero " << value*4 << std::endl;
+
+    }
+};
+
 #endif

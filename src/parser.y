@@ -121,7 +121,9 @@ ASSIGN : FACTOR '=' EXPR { $$ = new Assign($1, $3); }
        | EXPR SUB_ASS TERM { $$ = new SubAssign($1, $3); }
        ;
 
-DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2);}
+DECLARE : TYPE FACTOR { $$ = new Decleration($1, $2); }
+        | DECLARE '[' ']' { $$ = new EmptyArrayDecleration($1); }
+        | DECLARE '[' EXPR ']' { $$ = new ArrayDecleration($1, $3); }
         ;
 
 %%

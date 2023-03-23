@@ -107,6 +107,9 @@ public:
         if(extra <= -4){
             w << "li " << reg_name(6-extra) << ", " << value << std::endl;
         }
+        else if(extra == -3){
+            return value;
+        }
         else{
             std::string empty = ".";
             double reg = 0.0;
@@ -277,6 +280,35 @@ public:
     {
 
         //return bindings.at(id);
+    }
+};
+
+class EmptyArrayDecleration
+    : public Expression
+{
+private:
+    ExpressionPtr expr;
+public:
+    EmptyArrayDecleration(const ExpressionPtr _expr)
+        : expr(_expr)
+    {}
+
+    ExpressionPtr getExpr() const
+    { return expr; }
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra
+    ) const override
+    {
+        int arrname = -2;
+        double expr=getExpr()->evaluate(w, bindings, arrname);
+        w << ".zero 4" << std::endl;
+
     }
 };
 
