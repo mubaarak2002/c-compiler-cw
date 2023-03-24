@@ -34,7 +34,7 @@ std::string reg_name(double num){
         case 29: return "t4"; break;
         case 30: return "t5"; break;
         case 31: return "t6"; break;
-        default: return "zero";
+        default: return ("f"+std::to_string(int(num)-32));
     }
 
 }

@@ -13,7 +13,9 @@ Num [0-9]
 
 %%
 
-int             {  yylval.string=new std::string(yytext); return INT; }
+int             { yylval.string=new std::string(yytext); return INT; }
+float           { yylval.string=new std::string(yytext); return FLOAT; }
+double           { yylval.string=new std::string("float"); return FLOAT; }
 return          { return RETURN; }
 
 [(]             { return '('; }
@@ -53,8 +55,8 @@ return          { return RETURN; }
 [,]             { return COMMA; }
 [=]             { return '='; }
 [\^]            { return '^'; }
-[|]            { return '|'; }
-[&]            { return '&'; }
+"|"            { return '|'; }
+"&"            { return '&'; }
 
 
 ({Num}+)([.]{Num}+)? { yylval.number=strtod(yytext, 0); return T_NUMBER;}

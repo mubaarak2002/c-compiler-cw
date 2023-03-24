@@ -22,7 +22,7 @@
 
 %token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT ADD_ASS SUB_ASS NOT
 %token T_NUMBER T_VARIABLE
-%token INT
+%token INT FLOAT
 %token COMMA
 %token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN
 %token LTE GTE EQUAL NOTEQUAL LOG_AND LOG_OR
@@ -30,7 +30,7 @@
 
 %type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL
 %type <number> T_NUMBER
-%type <string> T_VARIABLE INT
+%type <string> T_VARIABLE INT FLOAT
 
 %start ROOT
 
@@ -100,6 +100,8 @@ TERM : UNARY          { $$ = $1; }
      | TERM T_DIVIDE FACTOR  { $$ = new DivOperator($1, $3); }
      | TERM '|' FACTOR       { $$ = new OROperator($1, $3); }
      | TERM '&' FACTOR       { $$ = new ANDOperator($1, $3); }
+     | TERM '|' '|' FACTOR       { $$ = new OROperator($1, $4); }
+     | TERM '&' '&' FACTOR       { $$ = new ANDOperator($1, $4); }
      | TERM '^' FACTOR       { $$ = new XOROperator($1, $3); }
      ;
 
@@ -115,6 +117,7 @@ FACTOR : T_NUMBER     { $$ = new Number( $1 ); }
        ;
 
 TYPE : INT  {$$ = new Type( *$1 );}
+     | FLOAT  { $$ = new Type( *$1 ); }
      ;
 
 ASSIGN : FACTOR '=' EXPR { $$ = new Assign($1, $3); }

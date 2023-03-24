@@ -63,8 +63,18 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        w << "add " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
-        return 5;
+        std::string code = "";
+        double reg;
+        if((vl > 31) || (vr > 31)){
+            code = "fadd.s ";
+            reg = 63;
+        }
+        else{
+            code = "add ";
+            reg = 5;
+        }
+        w << code << reg_name(reg) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+        return reg;
     }
 };
 
