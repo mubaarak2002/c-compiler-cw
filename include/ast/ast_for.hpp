@@ -78,7 +78,7 @@ public:
         double init = getInit()->evaluate(w, bindings, extra, funct);
         std::string CONDITION = "CONDITION_" + std::to_string(extra);
         std::string FORLOOP = "FORLOOP_" + std::to_string(extra);
-        std::string INCR = "INCR_" + std::to_string(extra);
+        std::string INCR = "LOOP_" + std::to_string(extra);
         std::string EXIT = "EXIT_" + std::to_string(extra);
         extra++;
         w << "j " << CONDITION << std::endl;

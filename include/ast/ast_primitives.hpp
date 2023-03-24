@@ -417,6 +417,48 @@ public:
     }
 };
 
+class Break
+    : public Expression
+{
+private:
+public:
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra,
+        int &funct
+    ) const override
+    {
+        std::string EXIT = "EXIT_" + std::to_string(extra-1);
+        w << "j " << EXIT << std::endl;
+    }
+};
+
+class Continue
+    : public Expression
+{
+private:
+public:
+
+    virtual void print(std::ostream &dst) const override{
+    }
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra,
+        int &funct
+    ) const override
+    {
+        std::string EXIT = "LOOP_" + std::to_string(extra-1);
+        w << "j " << EXIT << std::endl;
+    }
+};
+
 class EmptyArrayDecleration
     : public Expression
 {

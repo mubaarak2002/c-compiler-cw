@@ -603,7 +603,7 @@ public:
         int &funct
     ) const override
     {
-        std::string CONDITION = "CONDITION_" + std::to_string(extra);
+        std::string CONDITION = "LOOP_" + std::to_string(extra);
         std::string WHILETRUE = "WHILETRUE_" + std::to_string(extra);
         std::string EXIT = "EXIT_" + std::to_string(extra);
         extra++;

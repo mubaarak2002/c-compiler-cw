@@ -1,8 +1,10 @@
-enum X{
-    vv
-};
-
-int g()
-{
-    return vv+1;
+int f(){
+    while(x < 5){
+        continue;
+        x = 5;
+    }
+    while(x >5){
+        break;
+        x = 10;
+    }
 }
