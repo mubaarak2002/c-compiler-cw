@@ -162,11 +162,17 @@ public:
 
         double reg=getLeft()->evaluate(w, bindings, extra);
         int type = extra;
-        if(reg > 31){
+        if(reg > 63){
+            type = -200;
+        }
+        else if(reg > 31){
             type = -100;
         }
         double right=getRight()->evaluate(w, bindings, type);
-        if(reg > 31){
+        if(reg > 63){
+            w << "fadd.d " << reg_name(reg) << ", " << reg_name(right) << ", " << reg_name(95) << std::endl;
+        }
+        else if(reg > 31){
             w << "fadd.s " << reg_name(reg) << ", " << reg_name(right) << ", " << reg_name(63) << std::endl;
         }
         else{

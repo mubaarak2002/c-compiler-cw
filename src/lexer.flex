@@ -13,9 +13,9 @@ Num [0-9]
 
 %%
 
-int             { yylval.string=new std::string(yytext); return INT; }
-float           { yylval.string=new std::string(yytext); return FLOAT; }
-double           { yylval.string=new std::string("float"); return FLOAT; }
+int             { yylval.string=new std::string(yytext); return DATATYPE; }
+float           { yylval.string=new std::string(yytext); return DATATYPE; }
+double           { yylval.string=new std::string(yytext); return DATATYPE; }
 return          { return RETURN; }
 
 [(]             { return '('; }

@@ -34,7 +34,7 @@ std::string reg_name(double num){
         case 29: return "t4"; break;
         case 30: return "t5"; break;
         case 31: return "t6"; break;
-        // floating point registers
+        // single precision registers
         case 32: return "ft0"; break;
         case 33: return "ft1"; break;
         case 34: return "ft2"; break;
@@ -67,6 +67,39 @@ std::string reg_name(double num){
         case 61: return "ft9"; break;
         case 62: return "ft10"; break;
         case 63: return "ft11"; break;
+        // double precision registers
+        case 64: return "ft0"; break;
+        case 65: return "ft1"; break;
+        case 66: return "ft2"; break;
+        case 67: return "ft3"; break;
+        case 68: return "ft4"; break;
+        case 69: return "ft5"; break;
+        case 70: return "ft6"; break;
+        case 71: return "ft7"; break;
+        case 72: return "fs0"; break;
+        case 73: return "fs1"; break;
+        case 74: return "fa0"; break;
+        case 75: return "fa1"; break;
+        case 76: return "fa2"; break;
+        case 77: return "fa3"; break;
+        case 78: return "fa4"; break;
+        case 79: return "fa5"; break;
+        case 80: return "fa6"; break;
+        case 81: return "fa7"; break;
+        case 82: return "fs2"; break;
+        case 83: return "fs3"; break;
+        case 84: return "fs4"; break;
+        case 85: return "fs5"; break;
+        case 86: return "fs6"; break;
+        case 87: return "fs7"; break;
+        case 88: return "fs8"; break;
+        case 89: return "fs9"; break;
+        case 90: return "fs10"; break;
+        case 91: return "fs11"; break;
+        case 92: return "ft8"; break;
+        case 93: return "ft9"; break;
+        case 94: return "ft10"; break;
+        case 95: return "ft11"; break;
         default: return "zero";
     }
 

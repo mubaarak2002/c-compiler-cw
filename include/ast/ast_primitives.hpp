@@ -54,6 +54,15 @@ public:
                 }
             }
         }
+        else if(extra == -201){ // sets the float function arguments (74 - 81)
+            for(double i = 74; i < 81; i++){
+                if (bindings.at(i) == empty){
+                    bindings.at(i) = id;
+                    reg = i;
+                    break;
+                }
+            }
+        }
         else if(extra == -2){ // sets the int function label
             w << id << ":" << std::endl;
             return 0;
@@ -62,24 +71,45 @@ public:
             w << id << ":" << std::endl;
             return 0;
         }
-        else if(extra == -3){ // call function
+        else if(extra == -202){ // sets the double function label
+            w << id << ":" << std::endl;
+            return 0;
+        }
+        else if(extra == -3){ // call int function
+            w << "j " << id << std::endl;
+            return 0;
+        }
+        else if(extra == -103){ // call float function
+            w << "j " << id << std::endl;
+            return 0;
+        }
+        else if(extra == -203){ // call double function
             w << "j " << id << std::endl;
             return 0;
         }
         else{ // check if variable name already exists
-            for(double i = 0; i <= 63; i++){
+            for(double i = 0; i <= 95; i++){
                 if (bindings.at(i) == id){
                     reg = i;
                     break;
                 }
 
             }
-            if((extra <= -4) && (extra > -13)){ // call function
+            if((extra <= -4) && (extra > -13)){ // call int function
             w << "add " << reg_name(6-extra) << ", " << reg_name(reg) << ", zero" <<  std::endl;
             }
             if (reg == 0.0){ // makes new variable in a saved register if doesnt already exist
-                if(extra == -100){ // checks if it is a float
-                    for(double i = 50; i < 64; i++){
+                if(extra == -100){ // floats
+                    for(double i = 50; i < 63; i++){
+                        if (bindings.at(i) == empty){
+                            bindings.at(i) = id;
+                            reg = i;
+                            break;
+                        }
+                    }
+                }
+                else if(extra == -200){ // doubles
+                    for(double i = 82; i < 95; i++){
                         if (bindings.at(i) == empty){
                             bindings.at(i) = id;
                             reg = i;
@@ -159,6 +189,29 @@ public:
             }
             w << "fmv.w.x " << reg_name(reg) << ", " << reg_name(5) << std::endl;
         }
+
+        else if (extra == -200){ // double
+            double decimal = (double) value;
+            union {
+            double input;
+            uint64_t output;
+            } data;
+
+            data.input = decimal;
+
+            std::bitset<sizeof(double) * CHAR_BIT> bits(data.output);
+
+            std::string bitstring = bits.to_string<char, std::char_traits<char>, std::allocator<char>>();
+            w << "li " << reg_name(5) << ", 0b" << bitstring << std::endl;
+            for(double i = 33; i < 42; i++){
+                if (bindings.at(i) == empty){
+                    bindings.at(i) = value;
+                    reg = i;
+                    break;
+                }
+                w << "fmv.d.x " << reg_name(reg) << ", " << reg_name(5) << std::endl;
+            }
+        }
         else { // normal integers
             if((extra <= -4) && (extra > - 13)){
                 w << "li " << reg_name(6-extra) << ", " << value << std::endl;
@@ -205,6 +258,9 @@ public:
         else if(id == "float"){
             type = -100;
         }
+        else if(id == "double"){
+            type = -200;
+        }
         return type;
     }
 };
@@ -232,7 +288,12 @@ public:
     ) const override
     {
         double reg=getExpr()->evaluate(w, bindings, extra);
-        if(reg > 31){
+        if(reg > 63){
+            if (reg != 74){
+                w << "fadd.d " << reg_name(74) << ", " << reg_name(reg) << ", " << reg_name(95) << std::endl;
+            }
+        }
+        else if(reg > 31){
             if (reg != 42){
                 w << "fadd.s " << reg_name(42) << ", " << reg_name(reg) << ", " << reg_name(63) << std::endl;
             }

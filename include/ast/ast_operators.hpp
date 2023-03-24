@@ -65,7 +65,11 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "fadd.d ";
+            reg = 64;
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "fadd.s ";
             reg = 32;
         }
@@ -99,13 +103,14 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "fadd.d ";
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "fadd.s ";
-            reg = 32;
         }
         else{
             code = "add ";
-            reg = 5;
         }
         w << code << reg_name(vl) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
     }
@@ -132,7 +137,11 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "fsub.d ";
+            reg = 64;
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "fsub.s ";
             reg = 32;
         }
@@ -166,13 +175,14 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "fsub.d ";
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "fsub.s ";
-            reg = 32;
         }
         else{
             code = "sub ";
-            reg = 5;
         }
         w << code << reg_name(vl) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
     }
@@ -200,7 +210,11 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "fmul.d ";
+            reg = 64;
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "fmul.s ";
             reg = 32;
         }
@@ -234,7 +248,11 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "fdiv.d ";
+            reg = 64;
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "fdiv.s ";
             reg = 32;
         }
@@ -340,7 +358,11 @@ public:
         double vr=getRight()->evaluate(w, bindings, extra);
         std::string code = "";
         double reg;
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            code = "flt.d ";
+            reg = 5;
+        }
+        else if((vl > 31) || (vr > 31)){
             code = "flt.s ";
             reg = 5;
         }
@@ -396,7 +418,11 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            w << "fle.d " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+            return 5;
+        }
+        else if((vl > 31) || (vr > 31)){
             w << "fle.s " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
             return 5;
         }
@@ -453,7 +479,11 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            w << "feq.d " << reg_name(5) << ", " << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+            return 5;
+        }
+        else if((vl > 31) || (vr > 31)){
             w << "feq.s " << reg_name(5) << ", " << reg_name(vl) << ", " << reg_name(vr) << std::endl;
             return 5;
         }
@@ -486,7 +516,12 @@ public:
     {
         double vl=getLeft()->evaluate(w, bindings, extra);
         double vr=getRight()->evaluate(w, bindings, extra);
-        if((vl > 31) || (vr > 31)){
+        if((vl > 63) || (vr > 63)){
+            w << "feq.d " << reg_name(5) << ", " << reg_name(vl) << ", " << reg_name(vr) << std::endl;
+            w << "seqz " << reg_name(5) << reg_name(5) << std::endl;
+            return 5;
+        }
+        else if((vl > 31) || (vr > 31)){
             w << "feq.s " << reg_name(5) << ", " << reg_name(vl) << ", " << reg_name(vr) << std::endl;
             w << "seqz " << reg_name(5) << reg_name(5) << std::endl;
             return 5;

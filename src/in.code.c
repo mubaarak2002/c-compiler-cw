@@ -1,10 +1,4 @@
-float f(float x, int n)
+double f(double x, double y)
 {
-    float acc=1.0f;
-    int i=0;
-    while(i<n){
-        i++;
-        acc=acc*x;
-    }
-    return acc;
+    return x+y;
 }
