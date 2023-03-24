@@ -24,11 +24,11 @@
 %token T_NUMBER T_VARIABLE
 %token DATATYPE
 %token COMMA
-%token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN
+%token IF ELSE BREAK CONTINUE SWITCH CASE DEFAULT WHILE FOR RETURN ENUM
 %token LTE GTE EQUAL NOTEQUAL LOG_AND LOG_OR
 %token INCREMENT DECREMENT
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL ENUM_LIST
 %type <number> T_NUMBER
 %type <string> T_VARIABLE DATATYPE
 
@@ -72,7 +72,12 @@ SECTION : EXPR ';' {$$ = $1;}
         | RETURN EXPR ';' { $$ = new Return($2);}
         | DECLARE ';' { $$ = $1; }
         | CONTROL { $$ = $1; }
+        | ENUM EXPR '{' ENUM_LIST '}' ';' { $$ = $4; }
         ;
+
+ENUM_LIST : ASSIGN { $$ = $1; }
+          | EXPR { $$ = $1; }
+          | ENUM_LIST COMMA ASSIGN { $$ = new EnumList($1, $3); }
 
 ARGS : DECLARE  {$$ = $1;}
      | ARGS COMMA DECLARE {$$ = new Args($1,$3);}

@@ -40,6 +40,7 @@ return          { return RETURN; }
 "switch"        { return SWITCH; }
 "case"          { return CASE; }
 "default"       { return DEFAULT; }
+"enum"          { return ENUM; }
 "++"            { return INCREMENT; }
 "--"            { return DECREMENT; }
 "+="            { return ADD_ASS; }

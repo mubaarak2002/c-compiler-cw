@@ -1,8 +1,8 @@
 .text
 .globl f
 
-f:
-li t1, 13
-add s0, t1, zero
-add a0, s0, zero
+g:
+li t1, 1
+add t0, s0, t1
+add a0, t0, zero
 ret

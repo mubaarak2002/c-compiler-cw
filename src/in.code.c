@@ -1,7 +1,8 @@
-int f()
+enum X{
+    vv
+};
+
+int g()
 {
-    int y;
-    int x[8];
-    y=13;
-    return y;
+    return vv+1;
 }
