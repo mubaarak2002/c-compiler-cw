@@ -25,7 +25,8 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const
     { throw std::runtime_error("Not implemented."); }
 };

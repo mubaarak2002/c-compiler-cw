@@ -65,14 +65,15 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         int functname = -2;
-        double left=getLeft()->evaluate(w, bindings, functname);
+        double left=getLeft()->evaluate(w, bindings, functname, funct);
         int isfunct = -1;
-        double right=getRight()->evaluate(w, bindings, isfunct);
-        double content = getContent()->evaluate(w, bindings, extra);
+        double right=getRight()->evaluate(w, bindings, isfunct, funct);
+        double content = getContent()->evaluate(w, bindings, extra, funct);
         //return ret;
     }
 };
@@ -91,11 +92,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
 
-        double expr=getLeft()->evaluate(w, bindings, extra);
+        double expr=getLeft()->evaluate(w, bindings, extra, funct);
         std::string IFTRUE = "IFTRUE_" + std::to_string(extra);
         std::string ELSE = "ELSE_" + std::to_string(extra);
         std::string ENDIF = "ENDIF_" + std::to_string(extra);
@@ -104,10 +106,10 @@ public:
         w << "beq " << reg_name(5) << ", zero, " << ELSE <<std::endl;
         w << "j " << IFTRUE << std::endl;
         w << IFTRUE << ":" << std::endl;
-        double content=getRight()->evaluate(w, bindings, extra);
+        double content=getRight()->evaluate(w, bindings, extra, funct);
         w << "j " << ENDIF << std::endl;
         w << ELSE << ":" << std::endl;
-        double else_content=getContent()->evaluate(w, bindings, extra);
+        double else_content=getContent()->evaluate(w, bindings, extra, funct);
         w << "j " << ENDIF << std::endl;
         w << ENDIF << ":" << std::endl;
         return 5;

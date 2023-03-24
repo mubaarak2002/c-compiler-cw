@@ -57,13 +57,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
 
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
-        double first=getLeft()->evaluate(w, bindings, extra);
-        double next=getRight()->evaluate(w, bindings, extra);
+        double first=getLeft()->evaluate(w, bindings, extra, funct);
+        double next=getRight()->evaluate(w, bindings, extra, funct);
         return first;
     }
 };
@@ -82,13 +83,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
 
-        double type=getLeft()->evaluate(w, bindings, extra);
+        double type=getLeft()->evaluate(w, bindings, extra, funct);
         int varType = extra + type;
-        double reg=getRight()->evaluate(w, bindings, varType);
+        double reg=getRight()->evaluate(w, bindings, varType, funct);
         return reg;
     }
 };
@@ -107,13 +109,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
 
     {
 
-        double left=getLeft()->evaluate(w, bindings, extra);
-        double right=getRight()->evaluate(w, bindings, extra); //should be std::string
+        double left=getLeft()->evaluate(w, bindings, extra, funct);
+        double right=getRight()->evaluate(w, bindings, extra, funct); //should be std::string
         //return name;
     }
 };
@@ -132,13 +135,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
 
     {
-        double left=getLeft()->evaluate(w, bindings, extra);
+        double left=getLeft()->evaluate(w, bindings, extra, funct);
         extra--;
-        double right=getRight()->evaluate(w, bindings, extra);
+        double right=getRight()->evaluate(w, bindings, extra, funct);
         //return ;
     }
 };
@@ -156,11 +160,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
 
-        double reg=getLeft()->evaluate(w, bindings, extra);
+        double reg=getLeft()->evaluate(w, bindings, extra, funct);
         int type = extra;
         if(reg > 63){
             type = -200;
@@ -168,7 +173,7 @@ public:
         else if(reg > 31){
             type = -100;
         }
-        double right=getRight()->evaluate(w, bindings, type);
+        double right=getRight()->evaluate(w, bindings, type, funct);
         if(reg > 63){
             w << "fadd.d " << reg_name(reg) << ", " << reg_name(right) << ", " << reg_name(95) << std::endl;
         }
@@ -178,6 +183,7 @@ public:
         else{
             w << "add " << reg_name(reg) << ", " << reg_name(right) << ", zero" << std::endl;
         }
+
     }
 };
 
@@ -195,13 +201,15 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
 
         int functname = -2;
-        double left=getLeft()->evaluate(w, bindings, functname);
-        double content=getRight()->evaluate(w, bindings, extra);
+        int InFunct = 1;
+        double left=getLeft()->evaluate(w, bindings, functname, funct);
+        double content=getRight()->evaluate(w, bindings, extra, InFunct);
         //return ret;
     }
 };
@@ -220,13 +228,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         int functArgs = -4;
-        double args=getRight()->evaluate(w, bindings, functArgs);
+        double args=getRight()->evaluate(w, bindings, functArgs, funct);
         int callFunct = -3;
-        double left=getLeft()->evaluate(w, bindings, callFunct);
+        double left=getLeft()->evaluate(w, bindings, callFunct, funct);
         return 10;
     }
 };
@@ -245,14 +254,17 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         int arrname = -2;
         int getval = -3;
-        double left=getLeft()->evaluate(w, bindings, arrname);
-        double value=getRight()->evaluate(w, bindings, getval);
-        w << ".zero " << value*4 << std::endl;
+        if(!funct){
+            double left=getLeft()->evaluate(w, bindings, arrname, funct);
+            double value=getRight()->evaluate(w, bindings, getval, funct);
+            w << ".zero " << value*4 << std::endl;
+        }
 
     }
 };

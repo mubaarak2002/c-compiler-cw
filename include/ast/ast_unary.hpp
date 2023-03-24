@@ -49,11 +49,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         // TODO-F: Implement this similar to how AddOperator was implemented.
-        double expr = getExpr()->evaluate(w, bindings, extra);
+        double expr = getExpr()->evaluate(w, bindings, extra, funct);
         w << "li " << reg_name(5) << ", -1" << std::endl;
         w << "mul " << reg_name(expr) << ", " << reg_name(5) << ", " << reg_name(expr) << std::endl;
         return expr;
@@ -75,11 +76,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         // TODO-F: Implement this similar to how AddOperator was implemented.
-        double expr = getExpr()->evaluate(w, bindings, extra);
+        double expr = getExpr()->evaluate(w, bindings, extra, funct);
         w << "seqz " << reg_name(expr) << ", " << reg_name(expr) << std::endl;
         return expr;
 

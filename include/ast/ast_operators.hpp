@@ -58,11 +58,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -96,11 +97,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -130,11 +132,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -168,11 +171,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -203,11 +207,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -241,11 +246,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -279,11 +285,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "or " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         return 5;
     }
@@ -303,11 +310,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "and " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         return 5;
     }
@@ -327,11 +335,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "xor " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         return 5;
     }
@@ -351,11 +360,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         std::string code = "";
         double reg;
         if((vl > 63) || (vr > 63)){
@@ -389,11 +399,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "sgt " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         return 5;
     }
@@ -413,11 +424,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         if((vl > 63) || (vr > 63)){
             w << "fle.d " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
             return 5;
@@ -449,11 +461,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "sgt " << reg_name(5) << ", "  << reg_name(vl) << ", " << reg_name(vr) << std::endl;
         w << "xori " << reg_name(5) << ", " << reg_name(5) << ", 1" << std::endl;
         return 5;
@@ -474,11 +487,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         if((vl > 63) || (vr > 63)){
             w << "feq.d " << reg_name(5) << ", " << reg_name(vl) << ", " << reg_name(vr) << std::endl;
             return 5;
@@ -511,11 +525,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         if((vl > 63) || (vr > 63)){
             w << "feq.d " << reg_name(5) << ", " << reg_name(vl) << ", " << reg_name(vr) << std::endl;
             w << "seqz " << reg_name(5) << reg_name(5) << std::endl;
@@ -551,10 +566,11 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double expr=getLeft()->evaluate(w, bindings, extra);
+        double expr=getLeft()->evaluate(w, bindings, extra, funct);
         std::string IFTRUE = "IFTRUE_" + std::to_string(extra);
         std::string ENDIF = "ENDIF_" + std::to_string(extra);
         extra++;
@@ -562,7 +578,7 @@ public:
         w << "beq " << reg_name(5) << ", zero, " << ENDIF <<std::endl;
         w << "j " << IFTRUE << std::endl;
         w << IFTRUE << ":" << std::endl;
-        double content=getRight()->evaluate(w, bindings, extra);
+        double content=getRight()->evaluate(w, bindings, extra, funct);
         w << "j " << ENDIF << std::endl;
         w << ENDIF << ":" << std::endl;
         return 5;
@@ -583,7 +599,8 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         std::string CONDITION = "CONDITION_" + std::to_string(extra);
@@ -592,12 +609,12 @@ public:
         extra++;
         w << "j " << CONDITION << std::endl;
         w << CONDITION << ":" << std::endl;
-        double expr=getLeft()->evaluate(w, bindings, extra);
+        double expr=getLeft()->evaluate(w, bindings, extra, funct);
         w << "add " << reg_name(5) << ", " << reg_name(expr) << ", zero" << std::endl;
         w << "beq " << reg_name(5) << ", zero, " << EXIT << std::endl;
         w << "j " << WHILETRUE << std::endl;
         w << WHILETRUE << ":" << std::endl;
-        double content=getRight()->evaluate(w, bindings, extra);
+        double content=getRight()->evaluate(w, bindings, extra, funct);
         w << "j " << CONDITION << std::endl;
         w << EXIT << ":" << std::endl;
         return 5;
@@ -618,13 +635,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
         w << "addi t0, " << reg_name(vl) << ", 0" << std::endl;
         w << "beq t0, zero, .FALSE" << std::endl;
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "addi t0, " << reg_name(vr) << ", 0" << std::endl;
         w << "beq t0, zero, .FALSE" << std::endl;
         w << "li " << reg_name(5) << " ,1" << std::endl;
@@ -650,13 +668,14 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double vl=getLeft()->evaluate(w, bindings, extra);
+        double vl=getLeft()->evaluate(w, bindings, extra, funct);
         w << "addi t0, " << reg_name(vl) << ", 0" << std::endl;
         w << "bne t0, zero, .TRUE" << std::endl;
-        double vr=getRight()->evaluate(w, bindings, extra);
+        double vr=getRight()->evaluate(w, bindings, extra, funct);
         w << "addi t0, " << reg_name(vr) << ", 0" << std::endl;
         w << "beq t0, zero, .FALSE" << std::endl;
         w << ".TRUE:" << std::endl;

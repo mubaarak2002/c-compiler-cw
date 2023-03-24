@@ -2,6 +2,7 @@
 .globl f
 
 f:
-fadd.d ft0, fa0, fa1
-fadd.d fa0, ft0, ft11
+li t1, 13
+add s0, t1, zero
+add a0, s0, zero
 ret

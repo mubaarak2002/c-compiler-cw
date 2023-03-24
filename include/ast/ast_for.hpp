@@ -71,10 +71,11 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double init = getInit()->evaluate(w, bindings, extra);
+        double init = getInit()->evaluate(w, bindings, extra, funct);
         std::string CONDITION = "CONDITION_" + std::to_string(extra);
         std::string FORLOOP = "FORLOOP_" + std::to_string(extra);
         std::string INCR = "INCR_" + std::to_string(extra);
@@ -82,15 +83,15 @@ public:
         extra++;
         w << "j " << CONDITION << std::endl;
         w << CONDITION << ":" << std::endl;
-        double condition = getCond()->evaluate(w, bindings, extra);
+        double condition = getCond()->evaluate(w, bindings, extra, funct);
         w << "add " << reg_name(5) << ", " << reg_name(condition) << ", zero" << std::endl;
         w << "beq " << reg_name(5) << ", zero, " << EXIT <<std::endl;
         w << "j " << FORLOOP << std::endl;
         w << FORLOOP << ":" << std::endl;
-        double content = getContent()->evaluate(w, bindings, extra);
+        double content = getContent()->evaluate(w, bindings, extra, funct);
         w << "j " << INCR << std::endl;
         w << INCR << ":" << std::endl;
-        double increment = getIncr()->evaluate(w, bindings, extra);
+        double increment = getIncr()->evaluate(w, bindings, extra, funct);
         w << "j " << CONDITION << std::endl;
         w << EXIT << ":" << std::endl;
     }

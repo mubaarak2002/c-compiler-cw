@@ -12,6 +12,9 @@
 typedef std::map<double,std::string> histogram_type;
 typedef int extra_int;
 extra_int extra = 0;
+typedef int funct_int;
+funct_int funct = 0;
+
 
 void compile(std::ostream &w)
 {
@@ -122,7 +125,7 @@ void compile(std::ostream &w)
     w << std::endl;
 
     // evaluate it
-    double res=ast->evaluate(w, bindings, extra);
+    double res=ast->evaluate(w, bindings, extra, funct);
 }
 
 // TODO: uncomment the below if you're using Flex/Bison.

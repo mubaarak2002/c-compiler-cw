@@ -1,4 +1,7 @@
-double f(double x, double y)
+int f()
 {
-    return x+y;
+    int y;
+    int x[8];
+    y=13;
+    return y;
 }

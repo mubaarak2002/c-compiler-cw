@@ -31,7 +31,8 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         double reg = 0;
@@ -161,7 +162,8 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     { // store number into temp registers
         std::string empty = ".";
@@ -248,7 +250,8 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         double type = 0;
@@ -284,10 +287,11 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double reg=getExpr()->evaluate(w, bindings, extra);
+        double reg=getExpr()->evaluate(w, bindings, extra, funct);
         if(reg > 63){
             if (reg != 74){
                 w << "fadd.d " << reg_name(74) << ", " << reg_name(reg) << ", " << reg_name(95) << std::endl;
@@ -326,10 +330,11 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double reg=getExpr()->evaluate(w, bindings, extra);
+        double reg=getExpr()->evaluate(w, bindings, extra, funct);
         w << "addi " << reg_name(reg) << ", " << reg_name(reg) << ", 1" << std::endl;
     }
 };
@@ -353,10 +358,11 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
-        double reg=getExpr()->evaluate(w, bindings, extra);
+        double reg=getExpr()->evaluate(w, bindings, extra, funct);
         w << "addi " << reg_name(reg) << ", " << reg_name(reg) << ", -1" << std::endl;
     }
 };
@@ -380,11 +386,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         int callFunct = -3;
-        double expr=getExpr()->evaluate(w, bindings, callFunct);
+        double expr=getExpr()->evaluate(w, bindings, callFunct, funct);
         return 10;
     }
 };
@@ -401,7 +408,8 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
 
@@ -428,11 +436,12 @@ public:
     virtual double evaluate(
         std::ostream &w,
         std::map<double,std::string> &bindings,
-        int &extra
+        int &extra,
+        int &funct
     ) const override
     {
         int arrname = -2;
-        double expr=getExpr()->evaluate(w, bindings, arrname);
+        double expr=getExpr()->evaluate(w, bindings, arrname, funct);
         w << ".zero 4" << std::endl;
 
     }
