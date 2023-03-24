@@ -70,7 +70,7 @@ public:
     {
         int functname = -2;
         double left=getLeft()->evaluate(w, bindings, functname);
-        int isfunct = left;
+        int isfunct = -1;
         double right=getRight()->evaluate(w, bindings, isfunct);
         double content = getContent()->evaluate(w, bindings, extra);
         //return ret;

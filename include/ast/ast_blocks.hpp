@@ -87,8 +87,9 @@ public:
     {
 
         double type=getLeft()->evaluate(w, bindings, extra);
-        double name=getRight()->evaluate(w, bindings, extra);
-        return type;
+        int varType = extra + type;
+        double reg=getRight()->evaluate(w, bindings, varType);
+        return reg;
     }
 };
 
@@ -159,15 +160,17 @@ public:
     ) const override
     {
 
-        double right=getRight()->evaluate(w, bindings, extra);
-        if (right > 31){
-            int isFloat = -100;
-            double left=getLeft()->evaluate(w, bindings, isFloat);
-            w << "fadd.s " << reg_name(left) << ", " << reg_name(right) << ", zero" << std::endl;
+        double reg=getLeft()->evaluate(w, bindings, extra);
+        int type = extra;
+        if(reg > 31){
+            type = -100;
+        }
+        double right=getRight()->evaluate(w, bindings, type);
+        if(reg > 31){
+            w << "fadd.s " << reg_name(reg) << ", " << reg_name(right) << ", " << reg_name(63) << std::endl;
         }
         else{
-            double left=getLeft()->evaluate(w, bindings, extra);
-            w << "add "<<reg_name(left)<<", "<<reg_name(right)<<", zero" << std::endl;
+            w << "add " << reg_name(reg) << ", " << reg_name(right) << ", zero" << std::endl;
         }
     }
 };

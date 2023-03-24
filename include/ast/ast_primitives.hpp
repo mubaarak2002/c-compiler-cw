@@ -45,8 +45,8 @@ public:
                 }
             }
         }
-        else if(extra == -101){ // sets the float function arguments (32 - 39)
-            for(double i = 32; i < 40; i++){
+        else if(extra == -101){ // sets the float function arguments (42 - 49)
+            for(double i = 42; i < 50; i++){
                 if (bindings.at(i) == empty){
                     bindings.at(i) = id;
                     reg = i;
@@ -54,11 +54,17 @@ public:
                 }
             }
         }
-        else if(extra == -2){ // sets the function label
+        else if(extra == -2){ // sets the int function label
             w << id << ":" << std::endl;
+            return 0;
+        }
+        else if(extra == -102){ // sets the float function label
+            w << id << ":" << std::endl;
+            return 0;
         }
         else if(extra == -3){ // call function
             w << "j " << id << std::endl;
+            return 0;
         }
         else{ // check if variable name already exists
             for(double i = 0; i <= 63; i++){
@@ -73,7 +79,7 @@ public:
             }
             if (reg == 0.0){ // makes new variable in a saved register if doesnt already exist
                 if(extra == -100){ // checks if it is a float
-                    for(double i = 40; i < 64; i++){
+                    for(double i = 50; i < 64; i++){
                         if (bindings.at(i) == empty){
                             bindings.at(i) = id;
                             reg = i;
@@ -130,7 +136,8 @@ public:
     { // store number into temp registers
         std::string empty = ".";
         double reg = 0.0;
-        if (floor(value) != value) { // floating point numbers
+        if (extra == -100) { // floating point numbers
+
             float decimal = (float) value;
             union {
             float input;
@@ -142,16 +149,15 @@ public:
             std::bitset<sizeof(float) * CHAR_BIT> bits(data.output);
 
             std::string bitstring = bits.to_string<char, std::char_traits<char>, std::allocator<char>>();
-            int float2int = std::strtol(bitstring.c_str(), NULL, 2);
-            w << "li " << reg_name(5) << ", " << float2int << std::endl;
-            for(double i = 61; i > 39; i--){
+            w << "li " << reg_name(5) << ", 0b" << bitstring << std::endl;
+            for(double i = 33; i < 42; i++){
                 if (bindings.at(i) == empty){
                     bindings.at(i) = value;
                     reg = i;
                     break;
                 }
             }
-            w << "fmv.wx " << reg_name(reg) << ", " << reg_name(5) << std::endl;
+            w << "fmv.w.x " << reg_name(reg) << ", " << reg_name(5) << std::endl;
         }
         else { // normal integers
             if((extra <= -4) && (extra > - 13)){
@@ -194,10 +200,10 @@ public:
     {
         double type = 0;
         if(id == "int"){
-            type = -1;
+            type = 0;
         }
         else if(id == "float"){
-            type = -101;
+            type = -100;
         }
         return type;
     }
@@ -227,8 +233,8 @@ public:
     {
         double reg=getExpr()->evaluate(w, bindings, extra);
         if(reg > 31){
-            if (reg != 32){
-                w << "fadd.s " << reg_name(32) << ", " << reg_name(reg) << ", " << reg_name(62) << std::endl;
+            if (reg != 42){
+                w << "fadd.s " << reg_name(42) << ", " << reg_name(reg) << ", " << reg_name(63) << std::endl;
             }
         }
         else{

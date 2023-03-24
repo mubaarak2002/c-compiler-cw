@@ -34,7 +34,40 @@ std::string reg_name(double num){
         case 29: return "t4"; break;
         case 30: return "t5"; break;
         case 31: return "t6"; break;
-        default: return ("f"+std::to_string(int(num)-32));
+        // floating point registers
+        case 32: return "ft0"; break;
+        case 33: return "ft1"; break;
+        case 34: return "ft2"; break;
+        case 35: return "ft3"; break;
+        case 36: return "ft4"; break;
+        case 37: return "ft5"; break;
+        case 38: return "ft6"; break;
+        case 39: return "ft7"; break;
+        case 40: return "fs0"; break;
+        case 41: return "fs1"; break;
+        case 42: return "fa0"; break;
+        case 43: return "fa1"; break;
+        case 44: return "fa2"; break;
+        case 45: return "fa3"; break;
+        case 46: return "fa4"; break;
+        case 47: return "fa5"; break;
+        case 48: return "fa6"; break;
+        case 49: return "fa7"; break;
+        case 50: return "fs2"; break;
+        case 51: return "fs3"; break;
+        case 52: return "fs4"; break;
+        case 53: return "fs5"; break;
+        case 54: return "fs6"; break;
+        case 55: return "fs7"; break;
+        case 56: return "fs8"; break;
+        case 57: return "fs9"; break;
+        case 58: return "fs10"; break;
+        case 59: return "fs11"; break;
+        case 60: return "ft8"; break;
+        case 61: return "ft9"; break;
+        case 62: return "ft10"; break;
+        case 63: return "ft11"; break;
+        default: return "zero";
     }
 
 }
