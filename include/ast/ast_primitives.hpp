@@ -65,6 +65,9 @@ public:
             }
         }
         else if(extra == -2){ // sets the int function label
+            if(funct == 1){
+                w << ".globl " << id << std::endl;
+            }
             w << id << ":" << std::endl;
             return 0;
         }
@@ -134,7 +137,6 @@ public:
             }
         }
 
-        // w << "registers full" << std::endl;
         //extend registers here if they are full
         return reg;
 

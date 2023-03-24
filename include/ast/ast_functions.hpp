@@ -70,10 +70,11 @@ public:
     ) const override
     {
         int functname = -2;
+        int infunct = 1;
         double left=getLeft()->evaluate(w, bindings, functname, funct);
         int isfunct = -1;
         double right=getRight()->evaluate(w, bindings, isfunct, funct);
-        double content = getContent()->evaluate(w, bindings, extra, funct);
+        double content = getContent()->evaluate(w, bindings, extra, infunct);
         //return ret;
     }
 };

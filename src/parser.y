@@ -28,7 +28,7 @@
 %token LTE GTE EQUAL NOTEQUAL LOG_AND LOG_OR
 %token INCREMENT DECREMENT
 
-%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL ENUM_LIST
+%type <expr> EXPR TERM UNARY FACTOR SECTION SEQ DECLARE ARGS TYPE FUNCT FUNCT_CALL ASSIGN CONTROL ENUM_LIST SWITCH_EXPRESSION SWITCH_CASE SWITCH_STATEMENT
 %type <number> T_NUMBER
 %type <string> T_VARIABLE DATATYPE
 
@@ -75,11 +75,21 @@ SECTION : EXPR ';' {$$ = $1;}
         | DECLARE ';' { $$ = $1; }
         | CONTROL { $$ = $1; }
         | ENUM EXPR '{' ENUM_LIST '}' ';' { $$ = $4; }
+        | SWITCH_EXPRESSION { $$ = $1; }
         ;
 
 ENUM_LIST : ASSIGN { $$ = $1; }
           | EXPR { $$ = $1; }
           | ENUM_LIST COMMA ASSIGN { $$ = new EnumList($1, $3); }
+          ;
+
+SWITCH_EXPRESSION : SWITCH '(' EXPR ')' '{' SWITCH_STATEMENT '}' { $$ = new SwitchExpression($3, $6); }
+
+SWITCH_STATEMENT: SWITCH_CASE { $$ = $1; }
+                | SWITCH_STATEMENT SWITCH_CASE { $$ = new SwitchStatement($1, $2); }
+                ;
+
+SWITCH_CASE : CASE TERM ':' SEQ { $$ = new SwitchCase($2, $4); }
 
 ARGS : DECLARE  {$$ = $1;}
      | ARGS COMMA DECLARE {$$ = new Args($1,$3);}

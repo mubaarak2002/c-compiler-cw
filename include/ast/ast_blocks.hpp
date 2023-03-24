@@ -87,10 +87,10 @@ public:
         int &funct
     ) const override
     {
-
+        int Gfunct = 1;
         double type=getLeft()->evaluate(w, bindings, extra, funct);
         int varType = extra + type;
-        double reg=getRight()->evaluate(w, bindings, varType, funct);
+        double reg=getRight()->evaluate(w, bindings, varType, Gfunct);
         return reg;
     }
 };
@@ -292,6 +292,86 @@ public:
         double left=getLeft()->evaluate(w, bindings, extra, funct);
         double right=getRight()->evaluate(w, bindings, extra, funct); //should be std::string
         //return name;
+    }
+};
+
+class SwitchCase
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    SwitchCase(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra,
+        int &funct
+    ) const override
+    {
+        int count = funct;
+        double CaseReg=getLeft()->evaluate(w, bindings, extra, funct);
+        w << "bne " << reg_name(extra) << ", " << reg_name(CaseReg) << ", .L" << funct << std::endl;
+        double content=getRight()->evaluate(w, bindings, extra, count);
+        //return ret;
+    }
+};
+
+class SwitchStatement
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    SwitchStatement(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra,
+        int &funct
+    ) const override
+    {
+        int count = funct;
+        double left=getLeft()->evaluate(w, bindings, extra, funct);
+        w << ".L" << count << ":" << std::endl;
+        count++;
+        double right=getRight()->evaluate(w, bindings, extra, count);
+        w << ".L" << count << ":" << std::endl;
+        //return ret;
+    }
+};
+
+class SwitchExpression
+    : public Block
+{
+protected:
+    virtual const char *getOpcode() const override
+    { return "+"; }
+public:
+    SwitchExpression(ExpressionPtr _left, ExpressionPtr _right)
+        : Block(_left, _right)
+    {}
+
+    virtual double evaluate(
+        std::ostream &w,
+        std::map<double,std::string> &bindings,
+        int &extra,
+        int &funct
+    ) const override
+    {
+        int count = 2;
+        int CaseReg=getLeft()->evaluate(w, bindings, extra, funct);
+        int content=getRight()->evaluate(w, bindings, CaseReg, count);
+        w << ".END:" << std::endl;
+        //return ret;
     }
 };
 

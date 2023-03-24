@@ -23,6 +23,7 @@ return          { return RETURN; }
 [{]             { return '{'; }
 [}]             { return '}'; }
 [;]             { return ';'; }
+[:]             { return ':'; }
 [<]             { return '<'; }
 [>]             { return '>'; }
 "["             { return '['; }
