@@ -100,8 +100,6 @@ TERM : UNARY          { $$ = $1; }
      | TERM T_DIVIDE FACTOR  { $$ = new DivOperator($1, $3); }
      | TERM '|' FACTOR       { $$ = new OROperator($1, $3); }
      | TERM '&' FACTOR       { $$ = new ANDOperator($1, $3); }
-     | TERM '|' '|' FACTOR       { $$ = new OROperator($1, $4); }
-     | TERM '&' '&' FACTOR       { $$ = new ANDOperator($1, $4); }
      | TERM '^' FACTOR       { $$ = new XOROperator($1, $3); }
      ;
 
